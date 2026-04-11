@@ -4,6 +4,8 @@ var slice_start: Vector2 = Vector2.ZERO
 var slice_end: Vector2 = Vector2.ZERO
 var dragging: bool = false
 
+@onready var player = $"../Player"
+
 # Potential dummy function that can be called do the slicing
 func dummy() -> void:
 	pass
@@ -28,5 +30,8 @@ func _input(event : InputEvent) -> void:
 				dragging = false
 				clear_points()
 				dummy()
+				# TODO: Make sure to only call throw_mass if the slice goes through the polygon fully
+				# TODO: 10.0 is a dummy small area
+				player.throw_mass(slice_start, slice_end, 10.0)
 			
 			
