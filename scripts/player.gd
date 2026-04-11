@@ -14,7 +14,7 @@ const PREV_MOMENTUM_FACTOR = 1
 
 # for computing areas
 const PI = 3.141592
-const G = 100
+const G = 200
 
 
 func throw_mass(slice_start: Vector2, slice_end: Vector2, small_area: float):
