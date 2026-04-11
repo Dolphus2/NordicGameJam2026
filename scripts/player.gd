@@ -39,10 +39,25 @@ func get_area(points) -> float:
 		A += get_determinant(points[i-1], points[i])
 	return abs(A/2)
 
+func get_polygon_centroid(poly: PackedVector2Array) -> Vector2:
+	var centroid = Vector2.ZERO
+	var area = 0.0
+	
+	for i in range(poly.size()):
+		var p1 = poly[i-1]
+		var p2 = poly[i]
+		var cross_product = get_determinant(p1, p2)
+		area += cross_product
+		centroid += (p1 + p2) * cross_product
+
+	return centroid / (3.0 * area) # Note: area here is 2 * signed_area
+
 func sgn(a : float):
 	if a > 0: 
 		return 1
 	return -1
+
+
 
 func get_new_points(points : PackedVector2Array, c : Vector2, d : Vector2):
 	var inter = []
