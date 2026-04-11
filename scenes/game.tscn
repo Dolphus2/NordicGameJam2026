@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://01rjvcv7a1o1"]
 
-[ext_resource type="Script" uid="uid://lfsdvjy6gkhl" path="res://scripts/game.gd" id="1_u5sy4"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://dovur5twno2b1" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://d3ri75yx404k" path="res://scenes/slicer.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" path="res://scenes/planet.tscn" id="3_lnu2h"]

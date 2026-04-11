@@ -64,6 +64,8 @@ func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> 
 	var flag = true
 	
 	var inter = []
+	
+	var count = 0
 	for i in range(points.size()):
 		var a = points[i-1]
 		var b = points[i]
@@ -78,27 +80,36 @@ func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> 
 			var inter_p = (a * ob - b * oa) / (ob - oa)
 			inter.append(inter_p)
 			# Add the intersection points to the new polygons
-			if flag: poly1.append(inter_p)
-			else: poly2.append(inter_p)
+			poly1.append(inter_p)
+			poly2.append(inter_p)
 			flag = not flag
 		
 		# Could also just record the indices and do this after the loop. 
 		if flag: poly1.append(b)
 		else: poly2.append(b)
 	
-	print(poly1.size(), poly2.size(), points.size(), inter.size()*2)
 	assert(poly1.size() + poly2.size() == points.size() + inter.size()*2)
 	
 	if inter.size() < 2:
-		return [points] as Array[PackedVector2Array]
+		return [points]
 	else: 
-		return ([poly1, poly2] if get_area(poly1) > get_area(poly2) else [poly2, poly1]) as Array[PackedVector2Array]
+		# print(poly1)
+		if get_area(poly1) > get_area(poly2):
+			return [poly1, poly2] 
+		return [poly2, poly1] 
 
 func cut_player(slice_start, slice_end):
 	var points = $CollisionPolygon2D.polygon
 	var polygons = get_cut_polygons(points, slice_start, slice_end)
 	if polygons.size() == 2: # Can optimize this with an earlier check if necessary
-		$CollisionPolygon2D.polygon.set_polygon(polygons[0])
+		
+		# Update collision
+		$CollisionPolygon2D.set_deferred("polygon", polygons[0])
+		
+		# Update texture
+		$CollisionPolygon2D/Polygon2D.polygon = polygons[0]
+		$CollisionPolygon2D/Polygon2D.set_uv(polygons[0])
+
 		#TODO: Update renderer to match new collision block.
 		return polygons[1]
 	return null # Think of a better solution.

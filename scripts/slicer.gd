@@ -24,6 +24,7 @@ func _process(delta: float) -> void:
 func _input(event : InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
+			# print("mouse: ", get_local_mouse_position())
 			# Start dragging
 			if event.pressed:
 				# Screen position
