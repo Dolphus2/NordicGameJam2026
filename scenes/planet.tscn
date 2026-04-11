@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c7uhjyid0swon"]
+
+[ext_resource type="PackedScene" uid="uid://c3ynllltwgfvy" path="res://scenes/obstacle.tscn" id="1_cktii"]
+
+[node name="Node2D" unique_id=543335508 instance=ExtResource("1_cktii")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=316284884]
+position = Vector2(-21.999998, 19.999998)
