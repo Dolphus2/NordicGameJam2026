@@ -9,7 +9,7 @@ extends CharacterBody2D
 #const JUMP_VELOCITY = -400.0
 const ROT_SPEED = 1
 #const ACCELERATION = 200
-const THROW_SPEED = 100
+const THROW_SPEED = 400
 # Keep between 0-1, 1 is real conservation of momentum, 0 ignores the previous momentum.
 const PREV_MOMENTUM_FACTOR = 1
 
@@ -123,13 +123,6 @@ func get_velocity_pieces(polys, prev_poly, V):
 	vs[0] = v1
 	#print("deltaV= v1 - V")
 	return vs
-	
-	#var throw_dir: Vector2 = (position - get_polygon_centroid(poly)).normalized()
-	#var v1 = 1/mass * (PREV_MOMENTUM_FACTOR * DUMMY_INIT_AREA * velocity - small_area * THROW_SPEED * throw_dir)
-	##deltaV = 
-	##velocity = 
-	#velocity = 1/(DUMMY_INIT_AREA-small_area) * (PREV_MOMENTUM_FACTOR * DUMMY_INIT_AREA * velocity - small_area * THROW_SPEED * throw_dir)
-
 
 func cut_player(slice_start, slice_end) -> Array[PackedVector2Array]:
 	var player_poly = $CollisionPolygon2D.polygon
@@ -137,9 +130,12 @@ func cut_player(slice_start, slice_end) -> Array[PackedVector2Array]:
 	
 	if polygons.size() >= 2: # Can optimize this with an earlier check if necessary
 		var V = get_velocity()
-		get_velocity_pieces(polygons, player_poly, V) # fully functional
+		var vs = get_velocity_pieces(polygons, player_poly, V) # fully functional, does not modify state
 		
-		# Update all pieces.
+		# Update all pieces. 
+		# ...
+		
+		set_velocity(vs[0])
 		
 		# Update collision
 		$CollisionPolygon2D.set_deferred("polygon", polygons[0])
@@ -156,8 +152,8 @@ func _on_slicer_slice(slice_start, slice_end) -> void:
 	# Cut the player into pieces and apply directional velocity for each piece.
 	var polys = cut_player(slice_start, slice_end)
 	
-	for poly in polys:
-		assert(poly != $CollisionPolygon2D.polygon) #ensure it is not the player
+	#for poly in polys:
+		# assert(poly != $CollisionPolygon2D.polygon) #ensure it is not the player
 		
 		
 	

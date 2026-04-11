@@ -40,7 +40,6 @@ position = Vector2(3868, 342)
 
 [node name="Player" parent="." unique_id=1597567515 instance=ExtResource("1_uwrxv")]
 position = Vector2(2, -9)
-speed = 400
 
 [node name="Slicer" parent="Player" unique_id=2086154053 instance=ExtResource("2_yqjtg")]
 position = Vector2(-2, 9)
