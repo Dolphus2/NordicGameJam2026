@@ -2,13 +2,14 @@ extends CharacterBody2D
 
 @export var speed = 400
 
+
 #const SPEED = 300.0
 #const JUMP_VELOCITY = -400.0
 #const SPEED = 300.0
 #const JUMP_VELOCITY = -400.0
 const ROT_SPEED = 1
 #const ACCELERATION = 200
-const THROW_SPEED = 100
+const THROW_SPEED = 400
 # Keep between 0-1, 1 is real conservation of momentum, 0 ignores the previous momentum.
 const PREV_MOMENTUM_FACTOR = 1
 
@@ -21,19 +22,6 @@ const G = 0.0128
 const alpha = 1.6
 
 
-func throw_mass(slice_start: Vector2, slice_end: Vector2, small_area: float):
-	# TODO: Find out what direction is towards the small volume
-	var throw_dir: Vector2 = Vector2(
-		slice_start[1]-slice_end[1],
-		slice_end[0]-slice_start[0]
-		).normalized()
-	
-	var points = $CollisionPolygon2D.polygon
-	
-	# TODO: DUMMY, Extract volume of polygon2D
-	const DUMMY_INIT_AREA = 20
-	velocity = 1/(DUMMY_INIT_AREA-small_area) * (PREV_MOMENTUM_FACTOR * DUMMY_INIT_AREA * velocity - small_area * THROW_SPEED * throw_dir)
-
 func get_determinant(p1, p2) -> float:
 	return p1.x * p2.y - p2.x * p1.y
 
@@ -43,10 +31,24 @@ func get_area(points) -> float:
 		A += get_determinant(points[i-1], points[i])
 	return abs(A/2)
 
+func get_polygon_centroid(poly: PackedVector2Array) -> Vector2:
+	var centroid = Vector2.ZERO
+	var area = 0.0
+	
+	for i in range(poly.size()):
+		var p1 = poly[i-1]
+		var p2 = poly[i]
+		var cross_product = get_determinant(p1, p2)
+		area += cross_product
+		centroid += (p1 + p2) * cross_product
+
+	return centroid / (3.0 * area) # Note: area here is 2 * signed_area
+
 func sgn(a : float):
 	if a > 0: 
 		return 1
 	return -1
+	
 
 func get_new_points(points : PackedVector2Array, c : Vector2, d : Vector2):
 	var inter = []
@@ -105,29 +107,64 @@ func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> 
 		if get_area(poly1) > get_area(poly2):
 			return [poly1, poly2] 
 		return [poly2, poly1] 
+	
+func get_velocity_pieces(polys, prev_poly, V):
+	"""Takes an array of polygons. The first one is the player with the largest area."""
+	var M = get_area(prev_poly)
+	var v1 = (V * PREV_MOMENTUM_FACTOR) * M # temp
+	
+	var ms = []
+	var vs = []
+	
+	for i in range(polys.size()):
+		var v = - (get_polygon_centroid(polys[0]) - get_polygon_centroid(polys[i])).normalized() * THROW_SPEED
+		var m = get_area(polys[i])
+		vs.append(v)  # ignore the first one. It will be 0
+		ms.append(m)
+		v1 -= v*m
+		
+	v1 /= ms[0]
+	vs[0] = v1
+	#print("deltaV= v1 - V")
+	return vs
 
-func cut_player(slice_start, slice_end):
-	var points = $CollisionPolygon2D.polygon
-	var polygons = get_cut_polygons(points, slice_start, slice_end)
-	if polygons.size() == 2: # Can optimize this with an earlier check if necessary
+func cut_player(slice_start, slice_end) -> Array[PackedVector2Array]:
+	var player_poly = $CollisionPolygon2D.polygon
+	var polygons = get_cut_polygons(player_poly, slice_start, slice_end)
+	
+	if polygons.size() >= 2: # Can optimize this with an earlier check if necessary
+		var V = get_velocity()
+		var vs = get_velocity_pieces(polygons, player_poly, V) # fully functional, does not modify state
+		
+		# Update all pieces. 
+		# ...
+		
+		set_velocity(vs[0])
 		
 		# Update collision
 		$CollisionPolygon2D.set_deferred("polygon", polygons[0])
+		#location = get_polygon_centroid(polygons[0])
 		
 		# Update texture
 		$CollisionPolygon2D/Polygon2D.polygon = polygons[0]
 		$CollisionPolygon2D/Polygon2D.set_uv(polygons[0])
-
-		#TODO: Update renderer to match new collision block.
-		return polygons[1]
-	return null # Think of a better solution.
+	
+	assert(polygons.size() >=1)
+	return polygons
 	
 func _on_slicer_slice(slice_start, slice_end) -> void:
-	var small_piece = cut_player(slice_start, slice_end)
-	if small_piece:
-		# TODO: Spawn and render the part that flies off 
-		throw_mass(slice_start, slice_end, get_area(small_piece))
-		#var points = $CollisionPolygon2D.polygon
+	# Cut the player into pieces and apply directional velocity for each piece.
+	var polys = cut_player(slice_start, slice_end)
+	
+	#for poly in polys:
+		# assert(poly != $CollisionPolygon2D.polygon) #ensure it is not the player
+		
+		
+	
+	#if polys:
+		## TODO: Spawn and render the part that flies off 
+		#throw_mass(slice_start, slice_end, get_area(small_piece))
+		##var points = $CollisionPolygon2D.polygon
 		
 
 
