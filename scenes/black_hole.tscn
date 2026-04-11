@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ic33f"]
 radius = 395.00125
 
-[node name="Node2D" unique_id=543335508 instance=ExtResource("1_ic33f")]
+[node name="BlackHole" unique_id=543335508 instance=ExtResource("1_ic33f")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=316284884]
 position = Vector2(-92.99999, -4.9999995)
