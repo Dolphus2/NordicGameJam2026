@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c3ynllltwgfvy"]
+
+[ext_resource type="Texture2D" uid="uid://fltd3vo5dosl" path="res://assets/planet.png" id="1_cktii"]
+
+[node name="Node2D" type="Node2D" unique_id=543335508]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=316284884]
+z_index = 1
+position = Vector2(-3, 3)
+scale = Vector2(1.0032609, 0.99673915)
+texture = ExtResource("1_cktii")

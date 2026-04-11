@@ -2,11 +2,40 @@
 
 [ext_resource type="PackedScene" uid="uid://dovur5twno2b1" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://d3ri75yx404k" path="res://scenes/slicer.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://c7uhjyid0swon" path="res://scenes/planet.tscn" id="3_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://bhhyowmpwvb1l" path="res://assets/StartingBackground.png" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://1m8wimnntu5y" path="res://scenes/asteroids.tscn" id="4_p57ef"]
+[ext_resource type="PackedScene" uid="uid://dmktf342p1kkl" path="res://scenes/black_hole.tscn" id="5_u5sy4"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iywne"]
+texture = ExtResource("4_lbhrr")
+texture_region_size = Vector2i(1024, 1024)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_p57ef"]
+tile_size = Vector2i(1024, 1024)
+sources/1 = SubResource("TileSetAtlasSource_iywne")
 
 [node name="Game" type="Node2D" unique_id=1375401336]
 
 [node name="Player" parent="." unique_id=1597567515 instance=ExtResource("1_uwrxv")]
+position = Vector2(2, -9)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=367364067]
 
 [node name="Slicer" parent="." unique_id=2086154053 instance=ExtResource("2_yqjtg")]
+
+[node name="TileMap" type="TileMap" parent="." unique_id=324097902]
+tile_set = SubResource("TileSet_p57ef")
+format = 2
+layer_0/name = "Background"
+layer_0/tile_data = PackedInt32Array(-65536, 1, 0, -1, 1, 0, 0, 1, 0, 65535, 1, 0, -65538, 1, 0, -2, 1, 0, 65534, 1, 0, -65537, 1, 0, -131072, 1, 0, -131071, 1, 0, -65535, 1, 0, 1, 1, 0, 65537, 1, 0, 65536, 1, 0, 131071, 1, 0, 131070, 1, 0, -131070, 1, 0, -65534, 1, 0, 2, 1, 0, 65538, 1, 0, 3, 1, 0, -65533, 1, 0, -131069, 1, 0, 65539, 1, 0, -65539, 1, 0, -3, 1, 0, 65533, 1, 0, 131069, 1, 0, 131068, 1, 0, 65532, 1, 0, -4, 1, 0, -65540, 1, 0, -65532, 1, 0, -131068, 1, 0, 4, 1, 0, 65540, 1, 0)
+
+[node name="asteroids" parent="." unique_id=543335508 instance=ExtResource("4_p57ef")]
+position = Vector2(539, 623)
+
+[node name="black_hole" parent="." unique_id=1964572630 instance=ExtResource("5_u5sy4")]
+position = Vector2(1666, -851)
+
+[node name="planet" parent="." unique_id=1542240377 instance=ExtResource("3_lnu2h")]
+position = Vector2(-1181, 267)
