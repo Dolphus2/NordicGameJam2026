@@ -1,16 +1,45 @@
 [gd_scene format=3 uid="uid://c7uhjyid0swon"]
 
 [ext_resource type="PackedScene" uid="uid://c3ynllltwgfvy" path="res://scenes/obstacle.tscn" id="1_cktii"]
+[ext_resource type="Texture2D" uid="uid://cjlrk8j78wg6q" path="res://assets/planet_tiles.png" id="2_h8ms6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggt7d"]
+atlas = ExtResource("2_h8ms6")
+region = Rect2(0, 0, 920, 920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k1rn"]
+atlas = ExtResource("2_h8ms6")
+region = Rect2(920, 0, 920, 920)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_48b8c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggt7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k1rn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cktii"]
-radius = 271.08
+radius = 356.01263
 
 [node name="Planet" unique_id=543335508 instance=ExtResource("1_cktii")]
 
-[node name="Sprite2D" parent="." index="0" unique_id=316284884]
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=1754950900]
+sprite_frames = SubResource("SpriteFrames_48b8c")
+autoplay = "default"
+frame_progress = 0.7931712
+
+[node name="Sprite2D" parent="." index="1" unique_id=316284884]
+visible = false
 position = Vector2(-1, -1)
 scale = Vector2(0.51521736, 0.51186836)
 
 [node name="CollisionShape2D" parent="Killzone" parent_id_path=PackedInt32Array(124910515) index="1" unique_id=495435883]
-position = Vector2(13, -17)
+position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_cktii")

@@ -56,17 +56,17 @@ layer_0/name = "Background"
 layer_0/tile_data = PackedInt32Array(-65536, 0, 1, 131071, 0, 1, 65533, 0, 1, -65540, 131072, 2, 196604, 0, 1, 131073, 0, 1, -131070, 0, 1, 65534, 65536, 1, -131071, 65536, 1, 131072, 65536, 1, -65537, 131072, 1, -2, 131072, 1, 131069, 131072, 1, 131068, 131072, 1, 0, 65536, 1610612736, -65535, 131072, 1, 65538, 131072, 1, 131070, 65536, 2, 65536, 65536, 2, 65535, 65536, 2, -1, 0, 2, -65538, 65536, 2, -4, 65536, 2, -131072, 65536, 2, -65534, 0, 1, 1, 0, 1, 65537, 65536, 0, -3, 0, 1, -65539, 0, 1, 65532, 0, 1, 196605, 65536, 1610612736, 196606, 0, 1, 196607, 0, 1, 2, 0, 1, 131074, 0, 1)
 
 [node name="asteroids" parent="." unique_id=543335508 instance=ExtResource("4_p57ef")]
-position = Vector2(0, -12300)
+position = Vector2(-1134, 1096)
 
 [node name="black_hole" parent="." unique_id=1964572630 instance=ExtResource("5_u5sy4")]
-position = Vector2(1724, -19067)
+position = Vector2(-1303, -1198)
 
 [node name="planet" parent="." unique_id=1542240377 instance=ExtResource("3_lnu2h")]
 modulate = Color(0.24104936, 0.1023923, 0.24104936, 1)
-position = Vector2(2000, -6000)
+position = Vector2(1030, -991)
 
 [node name="GoalPlanet" parent="." unique_id=1171461319 instance=ExtResource("3_lnu2h")]
-position = Vector2(2000, -28000)
+position = Vector2(13, -2473)
 
 [node name="Player" parent="." unique_id=1597567515 instance=ExtResource("1_uwrxv")]
 position = Vector2(2, -9)
@@ -86,12 +86,12 @@ texture = ExtResource("8_0tnpc")
 script = ExtResource("9_vtaks")
 
 [node name="black_hole2" parent="." unique_id=784983135 instance=ExtResource("5_u5sy4")]
-position = Vector2(-3173, 1029)
+position = Vector2(-876, -61)
 scale = Vector2(0.5, 0.5)
 
 [node name="white_hole" type="Node2D" parent="." unique_id=523026886]
 z_index = 1
-position = Vector2(-6182, -4010)
+position = Vector2(516, 4320)
 scale = Vector2(0.5, 0.5)
 metadata/_edit_group_ = true
 

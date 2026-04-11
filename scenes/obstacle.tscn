@@ -3,7 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://fltd3vo5dosl" path="res://assets/planet.png" id="1_cktii"]
 [ext_resource type="PackedScene" uid="uid://beu5j00l33p4t" path="res://scenes/killzone.tscn" id="2_drdry"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_drdry"]
+
 [node name="Obstacle" type="Node2D" unique_id=543335508]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1754950900]
+sprite_frames = SubResource("SpriteFrames_drdry")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=316284884]
 z_index = 1

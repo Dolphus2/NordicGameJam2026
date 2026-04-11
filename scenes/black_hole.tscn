@@ -3,16 +3,46 @@
 [ext_resource type="Texture2D" uid="uid://b3bheh2leie3d" path="res://assets/blackhole.png" id="1_fhwcw"]
 [ext_resource type="PackedScene" uid="uid://c3ynllltwgfvy" path="res://scenes/obstacle.tscn" id="1_ic33f"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ic33f"]
+atlas = ExtResource("1_fhwcw")
+region = Rect2(0, 0, 920, 920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djpiu"]
+atlas = ExtResource("1_fhwcw")
+region = Rect2(920, 0, 920, 920)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nrqlr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ic33f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_djpiu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_ic33f"]
 radius = 395.00125
 
 [node name="BlackHole" unique_id=543335508 instance=ExtResource("1_ic33f")]
 
-[node name="Sprite2D" parent="." index="0" unique_id=316284884]
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=1754950900]
+position = Vector2(-11, -33)
+sprite_frames = SubResource("SpriteFrames_nrqlr")
+autoplay = "default"
+frame_progress = 0.23928262
+
+[node name="Sprite2D" parent="." index="1" unique_id=316284884]
+visible = false
 position = Vector2(-92.99999, -4.9999995)
 scale = Vector2(0.625, 0.6209372)
 texture = ExtResource("1_fhwcw")
 
 [node name="CollisionShape2D" parent="Killzone" parent_id_path=PackedInt32Array(124910515) index="1" unique_id=495435883]
-position = Vector2(-33, 17)
+visible = false
+position = Vector2(-2, -1)
 shape = SubResource("CircleShape2D_ic33f")

@@ -2,18 +2,49 @@
 
 [ext_resource type="PackedScene" uid="uid://c3ynllltwgfvy" path="res://scenes/obstacle.tscn" id="1_46dfx"]
 [ext_resource type="Texture2D" uid="uid://4g4bnqe5hvq2" path="res://assets/asteroids.png" id="2_72i4m"]
+[ext_resource type="Texture2D" uid="uid://bia2isgm4nest" path="res://assets/asteroids_tile.png" id="2_405t2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnxac"]
+atlas = ExtResource("2_405t2")
+region = Rect2(0, 0, 920, 920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1tuw"]
+atlas = ExtResource("2_405t2")
+region = Rect2(920, 0, 920, 920)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_buvfj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnxac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1tuw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_46dfx"]
-radius = 70.48
-height = 253.83
+radius = 103.04567
+height = 326.54324
 
 [node name="Asteroids" unique_id=543335508 instance=ExtResource("1_46dfx")]
 
-[node name="Sprite2D" parent="." index="0" unique_id=316284884]
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=1754950900]
+position = Vector2(-1, -1)
+scale = Vector2(0.39239126, 0.40760866)
+sprite_frames = SubResource("SpriteFrames_buvfj")
+autoplay = "default"
+frame_progress = 0.16759674
+
+[node name="Sprite2D" parent="." index="1" unique_id=316284884]
+visible = false
 scale = Vector2(0.1804348, 0.17926192)
 texture = ExtResource("2_72i4m")
 
 [node name="CollisionShape2D" parent="Killzone" parent_id_path=PackedInt32Array(124910515) index="1" unique_id=495435883]
-position = Vector2(5, 10.000001)
+position = Vector2(3.9999995, 5)
 rotation = -0.8796356
 shape = SubResource("CapsuleShape2D_46dfx")
