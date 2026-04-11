@@ -3,6 +3,16 @@
 [ext_resource type="Script" uid="uid://bqqi6mwdge48m" path="res://scripts/title_screen.gd" id="1_fgkus"]
 [ext_resource type="Texture2D" uid="uid://b8u0hchao4eax" path="res://assets/start.png" id="2_s4lrb"]
 [ext_resource type="Texture2D" uid="uid://b50geqrwc5swg" path="res://assets/quit.png" id="3_mgrm8"]
+[ext_resource type="Texture2D" uid="uid://bhhyowmpwvb1l" path="res://assets/StartingBackground.png" id="4_mgrm8"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dc4i4"]
+texture = ExtResource("4_mgrm8")
+texture_region_size = Vector2i(1024, 1024)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_e54dn"]
+tile_size = Vector2i(1024, 1024)
+sources/1 = SubResource("TileSetAtlasSource_dc4i4")
 
 [node name="TitleScreen" type="Control" unique_id=1092461750]
 layout_mode = 3
@@ -14,24 +24,34 @@ grow_vertical = 2
 script = ExtResource("1_fgkus")
 
 [node name="StartButton" type="TextureButton" parent="." unique_id=2029525742]
+z_index = 1
 layout_mode = 0
-offset_left = 368.0
-offset_top = 142.0
-offset_right = 728.9701
-offset_bottom = 295.0
+anchor_left = 0.31944445
+anchor_top = 0.2191358
+anchor_right = 0.6327865
+anchor_bottom = 0.45524693
 texture_normal = ExtResource("2_s4lrb")
 ignore_texture_size = true
 stretch_mode = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="QuitButton" type="TextureButton" parent="." unique_id=810390034]
+z_index = 1
 layout_mode = 0
-offset_left = 368.0
-offset_top = 320.0
-offset_right = 728.9701
-offset_bottom = 473.0
+anchor_left = 0.31944445
+anchor_top = 0.49382716
+anchor_right = 0.6327865
+anchor_bottom = 0.72993827
 texture_normal = ExtResource("3_mgrm8")
 ignore_texture_size = true
 stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="TileMap" type="TileMap" parent="." unique_id=270586248]
+tile_set = SubResource("TileSet_e54dn")
+format = 2
+layer_0/name = "Background"
+layer_0/tile_data = PackedInt32Array(0, 1, 0, 1, 1, 0)
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]

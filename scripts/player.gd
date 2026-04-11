@@ -15,7 +15,11 @@ const PREV_MOMENTUM_FACTOR = 1
 
 # for computing areas
 const PI = 3.141592
-const G = 200
+
+# gravitational constant
+const G = 0.0128
+# gravitational power, = 2 if real world
+const alpha = 1.6
 
 
 func get_determinant(p1, p2) -> float:
@@ -172,7 +176,7 @@ func get_radius_center(name) -> Array:
 	var space_object_center = space_object.get_position()
 	return [space_object_cs_radius, space_object_center]
 
-func get_gravity_contrib(rad_cens, player_pos) -> Vector2:
+func get_gravity_contrib(rad_cens : Array, player_pos : Vector2, delta: float) -> Vector2:
 	var velocity_contribution : Vector2 = Vector2(0, 0)
 
 	for rad_cen in rad_cens:
@@ -183,9 +187,9 @@ func get_gravity_contrib(rad_cens, player_pos) -> Vector2:
 		var d = pow(diff.x * diff.x + diff.y * diff.y, 0.5) - planet_radius
 		var vec = planet_pos - player_pos
 		var normed_vec = vec / (vec.x * vec.x + vec.y * vec.y + 1e-3)
-		velocity_contribution += G * (planet_radius * planet_radius * PI) / (d * d + 1e-3) * normed_vec
+		velocity_contribution += G * (planet_radius * planet_radius * PI) / (pow(d, alpha) + 1e-3) * normed_vec
 
-	return velocity_contribution
+	return delta * velocity_contribution
 
 #### GRAVITY STUFF END ####
 
@@ -203,15 +207,18 @@ func _physics_process(delta: float) -> void:
 
 	############# INITIALIZE AREAS START #############
 	var black_hole_1_radius_center = get_radius_center("black_hole") # name should match what we called it in the game scene
+	var black_hole_2_radius_center = get_radius_center("black_hole2")
+	var white_hole_1_radius_center = get_radius_center("white_hole")
 	var planet_1_radius_center = get_radius_center("planet")
 	var asteroid_1_radius_center = get_radius_center("asteroids")
+	var goal_planet_1_radius_center = get_radius_center("GoalPlanet")
 
-	var rad_cens = [black_hole_1_radius_center, planet_1_radius_center, asteroid_1_radius_center]
+	var rad_cens = [black_hole_1_radius_center, planet_1_radius_center, asteroid_1_radius_center, white_hole_1_radius_center]
 	############# INITIALIZE AREAS END #############
 
 	var player_position : Vector2 = get_node(".").get_position()
 
-	velocity += get_gravity_contrib(rad_cens, player_position)
+	velocity += get_gravity_contrib(rad_cens, player_position, delta)
 	print(velocity)
 
 	var p1 = Vector2(0, 70)

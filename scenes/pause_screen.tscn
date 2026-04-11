@@ -1,3 +1,49 @@
-[gd_scene format=3 uid="uid://hjtbrh7ja5tw"]
+[gd_scene format=3 uid="uid://b21d4powvh5m"]
 
-[node name="Node2D" type="Node2D" unique_id=738623791]
+[ext_resource type="Script" uid="uid://cqh18y1uta02s" path="res://scripts/pause_screen.gd" id="1_c4rma"]
+[ext_resource type="Texture2D" uid="uid://8irtn3fpn3l5" path="res://assets/x.png" id="1_hr2n2"]
+[ext_resource type="Texture2D" uid="uid://cg0rw7c2bewby" path="res://assets/x_hovered.png" id="2_27awe"]
+[ext_resource type="Texture2D" uid="uid://dbaxaw0de1j2e" path="res://assets/exit.png" id="3_duq8p"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1706168053]
+process_mode = 2
+layer = 0
+script = ExtResource("1_c4rma")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1980327642]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.18689638, 0.42291838, 0.37254903)
+
+[node name="ExitButton" type="TextureButton" parent="." unique_id=208052680]
+anchors_preset = -1
+anchor_left = 0.35677084
+anchor_top = 0.58950615
+anchor_right = 0.6444593
+anchor_bottom = 0.8055556
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("3_duq8p")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="XButton" type="TextureButton" parent="." unique_id=1818582594]
+anchors_preset = -1
+anchor_left = 0.8689236
+anchor_top = 0.047839507
+anchor_right = 0.95861137
+anchor_bottom = 0.20061728
+grow_horizontal = 0
+texture_normal = ExtResource("1_hr2n2")
+texture_pressed = ExtResource("2_27awe")
+texture_hover = ExtResource("2_27awe")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="XButton" to="." method="_on_x_button_pressed"]
