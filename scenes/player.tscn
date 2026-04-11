@@ -1,19 +1,16 @@
 [gd_scene format=3 uid="uid://dovur5twno2b1"]
 
-[sub_resource type="Gradient" id="Gradient_u8vuu"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_3vyb7"]
-gradient = SubResource("Gradient_u8vuu")
-fill = 1
-fill_from = Vector2(0.5565217, 0.5043478)
+[ext_resource type="Texture2D" uid="uid://ca8tvhwbrffwu" path="res://assets/spaceship.png" id="1_3vyb7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
-size = Vector2(60, 60)
+size = Vector2(1286, 1365)
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1597567515]
+scale = Vector2(-0.07310456, 0.08550585)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=761015102]
-texture = SubResource("GradientTexture2D_3vyb7")
+texture = ExtResource("1_3vyb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=116991104]
+position = Vector2(29, 13.5)
 shape = SubResource("RectangleShape2D_g2els")

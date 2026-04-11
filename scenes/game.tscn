@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://01rjvcv7a1o1"]
 
 [ext_resource type="PackedScene" uid="uid://dovur5twno2b1" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://dvbucl00blcp6" path="res://scripts/player.gd" id="2_yqjtg"]
 
 [node name="Game" type="Node2D" unique_id=1375401336]
 
 [node name="CharacterBody2D" parent="." unique_id=1597567515 instance=ExtResource("1_uwrxv")]
 position = Vector2(37, 18)
+script = ExtResource("2_yqjtg")
+metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=367364067]
