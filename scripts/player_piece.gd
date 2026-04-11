@@ -1,5 +1,11 @@
 extends RigidBody2D
 
+func spawn(points, v):
+	$CollisionPolygon2D.set_deferred("polygon", points)
+	$CollisionPolygon2D/Polygon2D.points = points
+	$CollisionPolygon2D/Polygon2D.uv = points
+	
+	linear_velocity = v
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

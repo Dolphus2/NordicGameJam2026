@@ -23,10 +23,14 @@ const alpha = 1.6
 var inter
 const seperation_explosion_scene = preload("res://scenes/seperation_particles.tscn")
 var sep_exp_container := Node2D.new()
+const player_piece = preload("res://scenes/player_piece.tscn")
+var piece_container := Node2D.new()
+
 
 func _ready() -> void:
 	# Make the seperation explosion container
 	add_child(sep_exp_container)
+	add_child(piece_container)
 
 func get_determinant(p1, p2) -> float:
 	return p1.x * p2.y - p2.x * p1.y
@@ -154,13 +158,10 @@ func get_velocity_pieces(polys, prev_poly, V):
 	return vs
 
 func spawn_piece(points: PackedVector2Array, v):
-	var piece = load("res://scenes/player_piece.tscn").instantiate()
-	get_parent().add_child(piece)
-	
-	piece.get_node("CollisionPolygon2D").polygon = points
-	piece.get_node("Polygon2D").polygon = points
-	piece.get_node("Polygon2D").uv = points
-	$CollisionPolygon2D/Polygon2D
+	var piece = player_piece.instantiate()
+	piece_container.add_child(piece)
+	piece.spawn(points, v)
+
 	piece.set_velocity(v)
 
 
@@ -176,7 +177,6 @@ func cut_player(slice_start, slice_end):
 		
 		# Update collision
 		$CollisionPolygon2D.set_deferred("polygon", polygons[0])
-		#location = get_polygon_centroid(polygons[0])
 		
 		# Update texture
 		$CollisionPolygon2D/Polygon2D.polygon = polygons[0]
@@ -185,11 +185,9 @@ func cut_player(slice_start, slice_end):
 		# Screen shake
 		$Camera2D.start_shake()
 		
-		
 		# Spawn new pieces
 		for i in range(1, polygons.size()):
 			spawn_piece(polygons[i], vs[i])
-		
 	
 	assert(polygons.size() >=1)
 	return polygons
