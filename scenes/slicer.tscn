@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d3ri75yx404k"]
+
+[ext_resource type="Script" uid="uid://dsh6rj3l6pk1g" path="res://scripts/slicer.gd" id="1_0ye4o"]
+
+[node name="Slicer" type="Line2D" unique_id=2086154053]
+script = ExtResource("1_0ye4o")
