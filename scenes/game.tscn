@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bhhyowmpwvb1l" path="res://assets/StartingBackground.png" id="4_lbhrr"]
 [ext_resource type="PackedScene" path="res://scenes/asteroids.tscn" id="4_p57ef"]
 [ext_resource type="PackedScene" path="res://scenes/black_hole.tscn" id="5_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://b6h4t5quexpt5" path="res://assets/arrow.png" id="8_0tnpc"]
+[ext_resource type="Script" uid="uid://cvydu0app6xv0" path="res://scripts/goal_locator.gd" id="9_vtaks"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iywne"]
 texture = ExtResource("4_lbhrr")
@@ -34,6 +36,9 @@ position = Vector2(1666, -851)
 
 [node name="planet" parent="." unique_id=1542240377 instance=ExtResource("3_lnu2h")]
 position = Vector2(-1181, 267)
+
+[node name="GoalPlanet" parent="." unique_id=1171461319 instance=ExtResource("3_lnu2h")]
+position = Vector2(3868, 342)
 
 [node name="Player" parent="." unique_id=1597567515 instance=ExtResource("1_uwrxv")]
 position = Vector2(2, -9)
