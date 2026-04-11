@@ -3,8 +3,17 @@
 [ext_resource type="PackedScene" uid="uid://c3ynllltwgfvy" path="res://scenes/obstacle.tscn" id="1_46dfx"]
 [ext_resource type="Texture2D" uid="uid://4g4bnqe5hvq2" path="res://assets/asteroids.png" id="2_72i4m"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_46dfx"]
+radius = 70.48
+height = 253.83
+
 [node name="Node2D" unique_id=543335508 instance=ExtResource("1_46dfx")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=316284884]
-scale = Vector2(0.38913038, 0.3866009)
+scale = Vector2(0.1804348, 0.17926192)
 texture = ExtResource("2_72i4m")
+
+[node name="CollisionShape2D" parent="Killzone" parent_id_path=PackedInt32Array(124910515) index="1" unique_id=495435883]
+position = Vector2(5, 10.000001)
+rotation = -0.8796356
+shape = SubResource("CapsuleShape2D_46dfx")
