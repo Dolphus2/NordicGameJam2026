@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var speed = 400
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -17,4 +18,6 @@ func _physics_process(delta: float) -> void:
 		# velocity.y += delta * ACCELERATION * sin(orientation)
 	print(rotation)
 
+func _physics_process(delta):
+	get_input()
 	move_and_slide()
