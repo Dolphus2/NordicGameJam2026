@@ -10,6 +10,11 @@ const ACCELERATION = 200
 func get_determinant(p1, p2) -> float:
 	return p1.x * p2.y - p2.x * p1.y
 
+func cross(p1 : Vector2, p2 : Vector2, p3 : Vector2) -> float:
+	var p1m3 = p1 - p3
+	var p2m3 = p2 - p3
+	return get_determinant(p1m3, p2m3)
+
 func get_area(points) -> float:
 	var A = 0
 	for i in range(points.size()):
@@ -20,11 +25,6 @@ func sgn(a : float):
 	if a > 0: 
 		return 1
 	return -1
-
-func cross(p1 : Vector2, p2 : Vector2, p3 : Vector2) -> float:
-	var p1m3 = p1 - p3
-	var p2m3 = p2 - p3
-	return p1m3.x * p2m3.y - p2m3.x * p1m3.y
 
 func get_new_points(points : PackedVector2Array, c : Vector2, d : Vector2):
 	var ans = []
