@@ -4,6 +4,8 @@ extends CharacterBody2D
 
 #const SPEED = 300.0
 #const JUMP_VELOCITY = -400.0
+#const SPEED = 300.0
+#const JUMP_VELOCITY = -400.0
 const ROT_SPEED = 1
 #const ACCELERATION = 200
 const THROW_SPEED = 100
