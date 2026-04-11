@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://01rjvcv7a1o1"]
 
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://dovur5twno2b1" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://d3ri75yx404k" path="res://scenes/slicer.tscn" id="2_yqjtg"]
-[ext_resource type="PackedScene" path="res://scenes/planet.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://c7uhjyid0swon" path="res://scenes/planet.tscn" id="3_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://bhhyowmpwvb1l" path="res://assets/StartingBackground.png" id="4_lbhrr"]
-[ext_resource type="PackedScene" path="res://scenes/asteroids.tscn" id="4_p57ef"]
-[ext_resource type="PackedScene" path="res://scenes/black_hole.tscn" id="5_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://1m8wimnntu5y" path="res://scenes/asteroids.tscn" id="4_p57ef"]
+[ext_resource type="PackedScene" uid="uid://dmktf342p1kkl" path="res://scenes/black_hole.tscn" id="5_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://b21d4powvh5m" path="res://scenes/pause_screen.tscn" id="8_gee14"]
 [ext_resource type="Texture2D" uid="uid://b6h4t5quexpt5" path="res://assets/arrow.png" id="8_0tnpc"]
 [ext_resource type="Script" uid="uid://cvydu0app6xv0" path="res://scripts/goal_locator.gd" id="9_vtaks"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iywne"]
 texture = ExtResource("4_lbhrr")
