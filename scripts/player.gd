@@ -101,10 +101,14 @@ func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> 
 	if inter.size() < 2:
 		return [points]
 	else: 
+		# SORRYSORRYSORRYSORRY i don't want to get it properly ;-;
+		# RENDER SEPERATION PARTICLES HERE BECAAAUSE WHY NOT!!!!!
+		$SeperationParticles.explode(inter)
+		
 		# print(poly1)
 		if get_area(poly1) > get_area(poly2):
 			return [poly1, poly2] 
-		return [poly2, poly1] 
+		return [poly2, poly1]
 
 func cut_player(slice_start, slice_end):
 	var points = $CollisionPolygon2D.polygon
@@ -129,6 +133,8 @@ func _on_slicer_slice(slice_start, slice_end) -> void:
 		throw_mass(slice_start, slice_end, get_area(small_piece))
 		#var points = $CollisionPolygon2D.polygon
 		
+		# Screen shake
+		$Camera2D.start_shake()
 
 
 #### GRAVITY STUFF START ####
@@ -182,7 +188,7 @@ func _physics_process(delta: float) -> void:
 	var player_position : Vector2 = get_node(".").get_position()
 
 	velocity += get_gravity_contrib(rad_cens, player_position, delta)
-	print(velocity)
+	#print(velocity)
 
 	var p1 = Vector2(0, 70)
 	var p2 = Vector2(70, 35)
