@@ -11,4 +11,6 @@ polygon = PackedVector2Array(66, 66, -66, 66, -66, -66, 66, -66)
 
 [node name="Polygon2D" type="Polygon2D" parent="CollisionPolygon2D" unique_id=1693170060]
 texture = ExtResource("2_g2els")
+texture_offset = Vector2(66, 66)
+texture_scale = Vector2(9.3, 9.3)
 polygon = PackedVector2Array(66, 66, -66, 66, -66, -66, 66, -66)
