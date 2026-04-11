@@ -1,3 +1,39 @@
-[gd_scene format=3 uid="uid://hjtbrh7ja5tw"]
+[gd_scene format=3 uid="uid://b21d4powvh5m"]
 
-[node name="Node2D" type="Node2D" unique_id=738623791]
+[ext_resource type="Script" uid="uid://cqh18y1uta02s" path="res://scripts/pause_screen.gd" id="1_c4rma"]
+[ext_resource type="Texture2D" uid="uid://8irtn3fpn3l5" path="res://assets/x.png" id="1_hr2n2"]
+[ext_resource type="Texture2D" uid="uid://cg0rw7c2bewby" path="res://assets/x_hovered.png" id="2_27awe"]
+[ext_resource type="Texture2D" uid="uid://dbaxaw0de1j2e" path="res://assets/exit.png" id="3_duq8p"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1706168053]
+process_mode = 2
+layer = 0
+script = ExtResource("1_c4rma")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1980327642]
+offset_right = 1153.0
+offset_bottom = 649.0
+color = Color(0, 0.18689638, 0.42291838, 0.37254903)
+
+[node name="ExitButton" type="TextureButton" parent="." unique_id=208052680]
+offset_left = 429.0
+offset_top = 368.0
+offset_right = 760.4171
+offset_bottom = 508.0
+texture_normal = ExtResource("3_duq8p")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="XButton" type="TextureButton" parent="." unique_id=1818582594]
+offset_left = 989.0
+offset_top = 39.0
+offset_right = 1092.3204
+offset_bottom = 138.0
+texture_normal = ExtResource("1_hr2n2")
+texture_pressed = ExtResource("2_27awe")
+texture_hover = ExtResource("2_27awe")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="XButton" to="." method="_on_x_button_pressed"]
