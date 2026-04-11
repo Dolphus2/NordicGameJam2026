@@ -5,7 +5,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_cktii"]
 radius = 271.08
 
-[node name="Node2D" unique_id=543335508 instance=ExtResource("1_cktii")]
+[node name="Planet" unique_id=543335508 instance=ExtResource("1_cktii")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=316284884]
 position = Vector2(-1, -1)
