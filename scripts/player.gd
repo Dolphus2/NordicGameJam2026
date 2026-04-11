@@ -170,12 +170,13 @@ func _physics_process(delta: float) -> void:
 
 	############# INITIALIZE AREAS START #############
 	var black_hole_1_radius_center = get_radius_center("black_hole") # name should match what we called it in the game scene
-	var black_hole_2_radius_center = get_radius_center("black_hole2") # name should match what we called it in the game scene
+	var black_hole_2_radius_center = get_radius_center("black_hole2")
+	var white_hole_1_radius_center = get_radius_center("white_hole")
 	var planet_1_radius_center = get_radius_center("planet")
 	var asteroid_1_radius_center = get_radius_center("asteroids")
 	var goal_planet_1_radius_center = get_radius_center("GoalPlanet")
 
-	var rad_cens = [black_hole_1_radius_center, planet_1_radius_center, asteroid_1_radius_center]
+	var rad_cens = [black_hole_1_radius_center, planet_1_radius_center, asteroid_1_radius_center, white_hole_1_radius_center]
 	############# INITIALIZE AREAS END #############
 
 	var player_position : Vector2 = get_node(".").get_position()
