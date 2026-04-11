@@ -9,8 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://dmktf342p1kkl" path="res://scenes/black_hole.tscn" id="5_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://b6h4t5quexpt5" path="res://assets/arrow.png" id="8_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://b21d4powvh5m" path="res://scenes/pause_screen.tscn" id="8_gee14"]
-[ext_resource type="Script" uid="uid://c3twqfo5ifjtr" path="res://scripts/game_camera.gd" id="8_kvuet"]
-[ext_resource type="Script" uid="uid://cvydu0app6xv0" path="res://scripts/goal_locator.gd" id="9_vtaks"]
+[ext_resource type="Script" path="res://scripts/game_camera.gd" id="8_kvuet"]
+[ext_resource type="Script" path="res://scripts/goal_locator.gd" id="9_vtaks"]
+[ext_resource type="PackedScene" path="res://scenes/killzone.tscn" id="10_dinhu"]
+[ext_resource type="Texture2D" uid="uid://elw48gf5p2ad" path="res://assets/whitehole1.png" id="10_kvpfn"]
+[ext_resource type="Texture2D" uid="uid://bqyqs0kcdetyu" path="res://assets/whitehole2.png" id="11_dinhu"]
 [ext_resource type="PackedScene" uid="uid://darh2j7irx2ft" path="res://scenes/seperation_particles.tscn" id="11_trtic"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trtic"]
