@@ -20,6 +20,8 @@ func throw_mass(slice_start: Vector2, slice_end: Vector2, small_area: float):
 		slice_start[0]-slice_end[0]
 		).normalized()
 	
+	var points = $CollisionPolygon2D.polygon
+	
 	# TODO: DUMMY, Extract volume of polygon2D
 	const DUMMY_INIT_AREA = 20
 	velocity = 1/(DUMMY_INIT_AREA-small_area) * (PREV_MOMENTUM_FACTOR * DUMMY_INIT_AREA * velocity - small_area * THROW_SPEED * throw_dir)
@@ -98,10 +100,16 @@ func cut_player(slice_start, slice_end):
 	if polygons.size() == 2: # Can optimize this with an earlier check if necessary
 		$CollisionPolygon2D.polygon.set_polygon(polygons[0])
 		#TODO: Update renderer to match new collision block.
-	return 
+		return polygons[1]
+	return null # Think of a better solution.
 	
 func _on_slicer_slice(slice_start, slice_end) -> void:
-	cut_player(slice_start, slice_end)
+	var small_piece = cut_player(slice_start, slice_end)
+	if small_piece:
+		# TODO: Spawn and render the part that flies off 
+		throw_mass(slice_start, slice_end, get_area(small_piece))
+		#var points = $CollisionPolygon2D.polygon
+		
 
 var debug_flag = true
 
