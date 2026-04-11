@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://01rjvcv7a1o1"]
+[gd_scene format=3 uid="uid://ckwrmvahd8e7l"]
 
 [ext_resource type="Texture2D" uid="uid://krtjoi21nja6" path="res://assets/background_tiles.png" id="1_kvuet"]
 [ext_resource type="PackedScene" uid="uid://dovur5twno2b1" path="res://scenes/player.tscn" id="1_uwrxv"]
