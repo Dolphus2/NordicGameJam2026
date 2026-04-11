@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cpb7s68l3n0f6"]
+
+[ext_resource type="Script" uid="uid://bqqi6mwdge48m" path="res://scripts/title_screen.gd" id="1_fgkus"]
+[ext_resource type="Texture2D" uid="uid://b8u0hchao4eax" path="res://assets/start.png" id="2_s4lrb"]
+[ext_resource type="Texture2D" uid="uid://b50geqrwc5swg" path="res://assets/quit.png" id="3_mgrm8"]
+
+[node name="TitleScreen" type="Control" unique_id=1092461750]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fgkus")
+
+[node name="StartButton" type="TextureButton" parent="." unique_id=2029525742]
+layout_mode = 0
+offset_left = 368.0
+offset_top = 142.0
+offset_right = 728.9701
+offset_bottom = 295.0
+texture_normal = ExtResource("2_s4lrb")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="QuitButton" type="TextureButton" parent="." unique_id=810390034]
+layout_mode = 0
+offset_left = 368.0
+offset_top = 320.0
+offset_right = 728.9701
+offset_bottom = 473.0
+texture_normal = ExtResource("3_mgrm8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
