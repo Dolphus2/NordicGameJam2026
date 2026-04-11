@@ -38,7 +38,6 @@ func sgn(a : float):
 		return 1
 	return -1
 
-
 func get_new_points(points : PackedVector2Array, c : Vector2, d : Vector2):
 	var inter = []
 	for i in range(points.size()):
@@ -57,7 +56,6 @@ func get_new_points(points : PackedVector2Array, c : Vector2, d : Vector2):
 	
 	return inter
 	
-
 func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> Array[PackedVector2Array]:
 	var poly1: PackedVector2Array
 	var poly2: PackedVector2Array
@@ -85,13 +83,25 @@ func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> 
 		# Could also just record the indices and do this after the loop. 
 		if flag: poly1.append(b)
 		else: poly2.append(b)
-		
+	
+	print(poly1.size(), poly2.size(), points.size(), inter.size()*2)
 	assert(poly1.size() + poly2.size() == points.size() + inter.size()*2)
 	
 	if inter.size() < 2:
 		return [points] as Array[PackedVector2Array]
 	else: 
 		return ([poly1, poly2] if get_area(poly1) > get_area(poly2) else [poly2, poly1]) as Array[PackedVector2Array]
+
+func cut_player(slice_start, slice_end):
+	var points = $CollisionPolygon2D.polygon
+	var polygons = get_cut_polygons(points, slice_start, slice_end)
+	if polygons.size() == 2: # Can optimize this with an earlier check if necessary
+		$CollisionPolygon2D.polygon.set_polygon(polygons[0])
+		#TODO: Update renderer to match new collision block.
+	return 
+	
+func _on_slicer_slice(slice_start, slice_end) -> void:
+	cut_player(slice_start, slice_end)
 
 var debug_flag = true
 

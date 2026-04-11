@@ -7,9 +7,11 @@ var dragging: bool = false
 
 @onready var player = $".."
 
-# Potential dummy function that can be called do the slicing
-func dummy() -> void:
-	pass
+signal slice
+
+func _slice() -> void:
+	# Optional slice logic
+	slice.emit(slice_start, slice_end)
 
 func _process(delta: float) -> void:
 	# Render the line while dragging
@@ -33,7 +35,8 @@ func _input(event : InputEvent) -> void:
 				slice_end = get_local_mouse_position()
 				dragging = false
 				clear_points()
-				dummy()
+				_slice()
+				
 				# TODO: Make sure to only call throw_mass if the slice goes through the polygon fully
 				# TODO: 10.0 is a dummy small area
 
