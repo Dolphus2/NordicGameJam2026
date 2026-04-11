@@ -27,12 +27,13 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1nafi"]
-radius = 615.5323
+radius = 378.02115
 
 [node name="Obstacle" unique_id=543335508 instance=ExtResource("1_vxywb")]
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1754950900]
-position = Vector2(-98, -26)
+position = Vector2(-66, -30)
+scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_gqj8v")
 autoplay = "default"
 frame_progress = 0.34361476
