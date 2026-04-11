@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://darh2j7irx2ft"]
+
+[ext_resource type="Script" uid="uid://bxcyd38srffwu" path="res://scripts/seperation_particles.gd" id="1_w4jt3"]
+
+[sub_resource type="Curve" id="Curve_kvuet"]
+_data = [Vector2(0.026041657, 0.99245286), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_trtic"]
+colors = PackedColorArray(0.77756566, 0.21410984, 0.20716554, 1, 0.86120456, 0.71828234, 0.27918488, 1)
+
+[node name="SeperationParticles" type="CPUParticles2D" unique_id=1995349642]
+emitting = false
+amount = 60
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(0, 50)
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 70.0
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_kvuet")
+color_initial_ramp = SubResource("Gradient_trtic")
+script = ExtResource("1_w4jt3")

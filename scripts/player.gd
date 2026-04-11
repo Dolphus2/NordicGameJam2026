@@ -21,6 +21,17 @@ const G = 0.0128
 # gravitational power, = 2 if real world
 const alpha = 1.6
 
+## This stuff should defintely not have been here, but too late!
+# IMSORRYIMSOORYIMSORRYIMSORRY
+#I NEED THIS VARIABLE FOR SEPERATION PARTICLES
+#AND I DO NOT FEEL LIKE RETURNING IT THROUGH 3 FUNCTIONS
+var inter
+const seperation_explosion_scene = preload("res://scenes/seperation_particles.tscn")
+var sep_exp_container := Node2D.new()
+
+func _ready() -> void:
+	# Make the seperation explosion container
+	add_child(sep_exp_container)
 
 func get_determinant(p1, p2) -> float:
 	return p1.x * p2.y - p2.x * p1.y
@@ -73,7 +84,7 @@ func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> 
 	var poly2: PackedVector2Array
 	var flag = true
 	
-	var inter = []
+	inter = []
 	
 	var count = 0
 	for i in range(points.size()):
@@ -102,7 +113,7 @@ func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> 
 	
 	if inter.size() < 2:
 		return [points]
-	else: 
+	else: 		
 		# print(poly1)
 		if get_area(poly1) > get_area(poly2):
 			return [poly1, poly2] 
@@ -122,6 +133,11 @@ func get_velocity_pieces(polys, prev_poly, V):
 		vs.append(v)  # ignore the first one. It will be 0
 		ms.append(m)
 		v1 -= v*m
+		
+		if i != 0:
+			var sep_explosion = seperation_explosion_scene.instantiate()
+			sep_exp_container.add_child(sep_explosion)
+			sep_explosion.explode(inter, v)
 		
 	v1 /= ms[0]
 	vs[0] = v1
@@ -148,7 +164,10 @@ func cut_player(slice_start, slice_end) -> Array[PackedVector2Array]:
 		# Update texture
 		$CollisionPolygon2D/Polygon2D.polygon = polygons[0]
 		$CollisionPolygon2D/Polygon2D.set_uv(polygons[0])
-	
+
+		# Screen shake
+		$Camera2D.start_shake()
+		
 	assert(polygons.size() >=1)
 	return polygons
 	
@@ -158,14 +177,11 @@ func _on_slicer_slice(slice_start, slice_end) -> void:
 	
 	#for poly in polys:
 		# assert(poly != $CollisionPolygon2D.polygon) #ensure it is not the player
-		
-		
-	
+
 	#if polys:
 		## TODO: Spawn and render the part that flies off 
 		#throw_mass(slice_start, slice_end, get_area(small_piece))
 		##var points = $CollisionPolygon2D.polygon
-		
 
 
 #### GRAVITY STUFF START ####
@@ -219,7 +235,7 @@ func _physics_process(delta: float) -> void:
 	var player_position : Vector2 = get_node(".").get_position()
 
 	velocity += get_gravity_contrib(rad_cens, player_position, delta)
-	print(velocity)
+	#print(velocity)
 
 	var p1 = Vector2(0, 70)
 	var p2 = Vector2(70, 35)
