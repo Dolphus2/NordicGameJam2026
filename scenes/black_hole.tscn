@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dmktf342p1kkl"]
+
+[ext_resource type="Texture2D" uid="uid://b3bheh2leie3d" path="res://assets/blackhole.png" id="1_fhwcw"]
+[ext_resource type="PackedScene" uid="uid://c3ynllltwgfvy" path="res://scenes/obstacle.tscn" id="1_ic33f"]
+
+[node name="Node2D" unique_id=543335508 instance=ExtResource("1_ic33f")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=316284884]
+position = Vector2(-92.99999, -4.9999995)
+texture = ExtResource("1_fhwcw")
