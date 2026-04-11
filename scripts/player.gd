@@ -21,7 +21,7 @@ func throw_mass(slice_start: Vector2, slice_end: Vector2, small_area: float):
 	# TODO: Find out what direction is towards the small volume
 	var throw_dir: Vector2 = Vector2(
 		slice_start[1]-slice_end[1],
-		slice_start[0]-slice_end[0]
+		slice_end[0]-slice_start[0]
 		).normalized()
 	
 	# TODO: DUMMY, Extract volume of polygon2D
