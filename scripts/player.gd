@@ -2,11 +2,6 @@ extends CharacterBody2D
 
 @export var speed = 400
 
-
-#const SPEED = 300.0
-#const JUMP_VELOCITY = -400.0
-#const SPEED = 300.0
-#const JUMP_VELOCITY = -400.0
 const ROT_SPEED = 1
 #const ACCELERATION = 200
 const THROW_SPEED = 400
@@ -86,7 +81,6 @@ func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> 
 	
 	inter = []
 	
-	var count = 0
 	for i in range(points.size()):
 		var a = points[i-1]
 		var b = points[i]
@@ -118,6 +112,21 @@ func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> 
 		if get_area(poly1) > get_area(poly2):
 			return [poly1, poly2] 
 		return [poly2, poly1] 
+		
+func get_cut_polygons2(polygon : PackedVector2Array, slice_start : Vector2, slice_end : Vector2) -> Array[PackedVector2Array]:
+	"""Cut polygon into smaller polygons by the line CD"""
+	# Split with two rectangles. Mask
+	if not (Geometry2D.is_point_in_polygon(slice_start, polygon) or Geometry2D.is_point_in_polygon(slice_end, polygon)):
+		var slice = (slice_end - slice_start).normalized()
+		var norm = Vector2(-slice.y, slice.x) * 10000
+		var clip_mask: PackedVector2Array = [
+			slice_start + norm, slice_end + norm, slice_end , slice_start
+		]
+		var polys_a = Geometry2D.clip_polygons(polygon, clip_mask)
+		polys_a.append_array(Geometry2D.intersect_polygons(polygon, clip_mask))
+		polys_a.sort_custom(func(a, b): return get_area(a) > get_area(b))
+		return polys_a
+	return [polygon]
 	
 func get_velocity_pieces(polys, prev_poly, V):
 	"""Takes an array of polygons. The first one is the player with the largest area."""
@@ -144,17 +153,25 @@ func get_velocity_pieces(polys, prev_poly, V):
 	#print("deltaV= v1 - V")
 	return vs
 
-func cut_player(slice_start, slice_end) -> Array[PackedVector2Array]:
+func spawn_piece(points: PackedVector2Array, v):
+	var piece = load("res://scenes/player_piece.tscn").instantiate()
+	get_parent().add_child(piece)
+	
+	piece.get_node("CollisionPolygon2D").polygon = points
+	piece.get_node("Polygon2D").polygon = points
+	piece.get_node("Polygon2D").uv = points
+	$CollisionPolygon2D/Polygon2D
+	piece.set_velocity(v)
+
+
+func cut_player(slice_start, slice_end):
 	var player_poly = $CollisionPolygon2D.polygon
-	var polygons = get_cut_polygons(player_poly, slice_start, slice_end)
+	var polygons = get_cut_polygons2(player_poly, slice_start, slice_end)
 	
 	if polygons.size() >= 2: # Can optimize this with an earlier check if necessary
 		var V = get_velocity()
 		var vs = get_velocity_pieces(polygons, player_poly, V) # fully functional, does not modify state
-		
-		# Update all pieces. 
-		# ...
-		
+
 		set_velocity(vs[0])
 		
 		# Update collision
@@ -168,20 +185,18 @@ func cut_player(slice_start, slice_end) -> Array[PackedVector2Array]:
 		# Screen shake
 		$Camera2D.start_shake()
 		
+		
+		# Spawn new pieces
+		for i in range(1, polygons.size()):
+			spawn_piece(polygons[i], vs[i])
+		
+	
 	assert(polygons.size() >=1)
 	return polygons
 	
 func _on_slicer_slice(slice_start, slice_end) -> void:
 	# Cut the player into pieces and apply directional velocity for each piece.
-	var polys = cut_player(slice_start, slice_end)
-	
-	#for poly in polys:
-		# assert(poly != $CollisionPolygon2D.polygon) #ensure it is not the player
-
-	#if polys:
-		## TODO: Spawn and render the part that flies off 
-		#throw_mass(slice_start, slice_end, get_area(small_piece))
-		##var points = $CollisionPolygon2D.polygon
+	cut_player(slice_start, slice_end)
 
 
 #### GRAVITY STUFF START ####
