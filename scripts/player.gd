@@ -16,8 +16,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("accel"):
 		velocity += - delta * ACCELERATION * transform.y
 		# velocity.y += delta * ACCELERATION * sin(orientation)
-	print(rotation)
+	# print(rotation)
+	print(position)
 
-func _physics_process(delta):
-	get_input()
 	move_and_slide()
