@@ -54,26 +54,6 @@ func get_new_points(points : PackedVector2Array, c : Vector2, d : Vector2):
 			## Only runs when the lines intersect.
 	
 	return inter
-	var inter = []
-	for i in range(points.size()):
-		var a = points[i-1]
-		var b = points[i]
-
-		var oa = cross(d,a,c)
-		
-		# get_determinant(d - c, a - c)
-		var ob = cross(d,b,c)
-		# get_determinant(d - b, d - c)
-		var oc = cross(a,b,c)
-		# get_determinant(a - b, a - c)
-		var od = cross(b,d,a)
-		# get_determinant(b - d, b - a)
-
-		if (sgn(oa) != sgn(ob) && sgn(oc) != sgn(od)):
-			inter.append((a * ob - b * oa) / (ob - oa))
-			## Only runs when the lines intersect.
-	
-	return inter
 
 var flag = true
 
