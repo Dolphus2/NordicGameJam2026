@@ -1,16 +1,20 @@
 [gd_scene format=3 uid="uid://dovur5twno2b1"]
 
 [ext_resource type="Script" uid="uid://c3wgieqcegilv" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://ca8tvhwbrffwu" path="res://assets/spaceship.png" id="2_g2els"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3vyb7"]
+load_path = "res://.godot/imported/spaceship.png-58498873603dbb319d28b42f0ee36280.ctex"
 
 [node name="Player" type="CharacterBody2D" unique_id=1597567515]
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1209824633]
-polygon = PackedVector2Array(67, -66, -66, -65, -66, 69, 65, 67)
+polygon = PackedVector2Array(66, -66, -66, -66, -66, 66, 66, 66)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=761015102]
-z_index = 5
-position = Vector2(-5.5000124, -3.8146973e-06)
-scale = Vector2(0.11467392, 0.10652175)
-texture = ExtResource("2_g2els")
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=701543588]
+texture_filter = 2
+texture = SubResource("CompressedTexture2D_3vyb7")
+texture_offset = Vector2(95, 95)
+texture_scale = Vector2(10, 10)
+polygon = PackedVector2Array(66, -66, 66, 66, -66, 66, -66, -66)
+polygons = [PackedInt32Array(3, 0, 1, 2)]
