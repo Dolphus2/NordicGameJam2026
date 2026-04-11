@@ -3,8 +3,16 @@
 [ext_resource type="Texture2D" uid="uid://b3bheh2leie3d" path="res://assets/blackhole.png" id="1_fhwcw"]
 [ext_resource type="PackedScene" uid="uid://c3ynllltwgfvy" path="res://scenes/obstacle.tscn" id="1_ic33f"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ic33f"]
+radius = 395.00125
+
 [node name="Node2D" unique_id=543335508 instance=ExtResource("1_ic33f")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=316284884]
 position = Vector2(-92.99999, -4.9999995)
+scale = Vector2(0.625, 0.6209372)
 texture = ExtResource("1_fhwcw")
+
+[node name="CollisionShape2D" parent="Killzone" parent_id_path=PackedInt32Array(124910515) index="1" unique_id=495435883]
+position = Vector2(-33, 17)
+shape = SubResource("CircleShape2D_ic33f")

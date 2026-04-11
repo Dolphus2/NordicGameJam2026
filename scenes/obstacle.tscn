@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c3ynllltwgfvy"]
 
 [ext_resource type="Texture2D" uid="uid://fltd3vo5dosl" path="res://assets/planet.png" id="1_cktii"]
+[ext_resource type="PackedScene" uid="uid://beu5j00l33p4t" path="res://scenes/killzone.tscn" id="2_drdry"]
 
 [node name="Node2D" type="Node2D" unique_id=543335508]
 
@@ -9,3 +10,8 @@ z_index = 1
 position = Vector2(-3, 3)
 scale = Vector2(1.0032609, 0.99673915)
 texture = ExtResource("1_cktii")
+
+[node name="Killzone" parent="." unique_id=124910515 instance=ExtResource("2_drdry")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone" unique_id=495435883]
+z_index = 1

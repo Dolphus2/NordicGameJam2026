@@ -2,7 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://c3ynllltwgfvy" path="res://scenes/obstacle.tscn" id="1_cktii"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cktii"]
+radius = 271.08
+
 [node name="Node2D" unique_id=543335508 instance=ExtResource("1_cktii")]
 
 [node name="Sprite2D" parent="." index="0" unique_id=316284884]
-position = Vector2(-21.999998, 19.999998)
+position = Vector2(-1, -1)
+scale = Vector2(0.51521736, 0.51186836)
+
+[node name="CollisionShape2D" parent="Killzone" parent_id_path=PackedInt32Array(124910515) index="1" unique_id=495435883]
+position = Vector2(13, -17)
+shape = SubResource("CircleShape2D_cktii")

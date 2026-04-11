@@ -38,28 +38,62 @@ func sgn(a : float):
 		return 1
 	return -1
 
-func cross(p1 : Vector2, p2 : Vector2, p3 : Vector2) -> float:
-	var p1m3 = p1 - p3
-	var p2m3 = p2 - p3
-	return p1m3.x * p2m3.y - p2m3.x * p1m3.y
 
 func get_new_points(points : PackedVector2Array, c : Vector2, d : Vector2):
-	var ans = []
+	var inter = []
 	for i in range(points.size()):
 		var a = points[i-1]
 		var b = points[i]
 
-		var oa = cross(d,a,c)
-		var ob = cross(d,b,c)
-		var oc = cross(a,b,c)
-		var od = cross(b,d,a)
-
+		var oa = get_determinant(d - c, a - c)
+		var ob = get_determinant(d - b, d - c)
+		var oc = get_determinant(a - b, a - c)
+		var od = get_determinant(b - d, b - a)
+		
 		if (sgn(oa) != sgn(ob) && sgn(oc) != sgn(od)):
-			ans.append((a * ob - b * oa) / (ob - oa))
+			# Only runs when the lines intersect.
+			var inter_p = (a * ob - b * oa) / (ob - oa)
+			inter.append(inter_p)
+	
+	return inter
+	
 
-	return ans
+func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> Array[PackedVector2Array]:
+	var poly1: PackedVector2Array
+	var poly2: PackedVector2Array
+	var flag = true
+	
+	var inter = []
+	for i in range(points.size()):
+		var a = points[i-1]
+		var b = points[i]
 
-var flag = true
+		var oa = get_determinant(d - c, a - c)
+		var ob = get_determinant(d - b, d - c)
+		var oc = get_determinant(a - b, a - c)
+		var od = get_determinant(b - d, b - a)
+		
+		if (sgn(oa) != sgn(ob) && sgn(oc) != sgn(od)):
+			# Only runs when the lines intersect.
+			var inter_p = (a * ob - b * oa) / (ob - oa)
+			inter.append(inter_p)
+			# Add the intersection points to the new polygons
+			if flag: poly1.append(inter_p)
+			else: poly2.append(inter_p)
+			flag = not flag
+		
+		# Could also just record the indices and do this after the loop. 
+		if flag: poly1.append(b)
+		else: poly2.append(b)
+		
+	assert(poly1.size() + poly2.size() == points.size() + inter.size()*2)
+	
+	if inter.size() < 2:
+		return [points] as Array[PackedVector2Array]
+	else: 
+		return ([poly1, poly2] if get_area(poly1) > get_area(poly2) else [poly2, poly1]) as Array[PackedVector2Array]
+
+var debug_flag = true
 
 func _physics_process(delta: float) -> void:
 	
@@ -75,11 +109,11 @@ func _physics_process(delta: float) -> void:
 	var p2 = Vector2(70, 35)
 	var points = $CollisionPolygon2D.polygon
 	var ans = get_new_points(points, p1, p2)
-	if flag:
+	if debug_flag:
 		print("-----------------")
 		print(p1, p2, points)
 		print(ans)
 		print(get_area(points))
-		flag = false
+		debug_flag = false
 
 	move_and_slide()
