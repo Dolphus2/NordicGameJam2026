@@ -6,6 +6,7 @@
 [node name="Game" type="Node2D" unique_id=1375401336]
 
 [node name="Player" parent="." unique_id=1597567515 instance=ExtResource("1_uwrxv")]
+speed = null
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=367364067]
 

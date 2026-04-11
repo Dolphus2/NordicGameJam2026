@@ -10,11 +10,6 @@ const ACCELERATION = 200
 func get_determinant(p1, p2) -> float:
 	return p1.x * p2.y - p2.x * p1.y
 
-func cross(p1 : Vector2, p2 : Vector2, p3 : Vector2) -> float:
-	var p1m3 = p1 - p3
-	var p2m3 = p2 - p3
-	return get_determinant(p1m3, p2m3)
-
 func get_area(points) -> float:
 	var A = 0
 	for i in range(points.size()):
@@ -27,20 +22,41 @@ func sgn(a : float):
 	return -1
 
 func get_new_points(points : PackedVector2Array, c : Vector2, d : Vector2):
-	var ans = []
+	var inter = []
+	for i in range(points.size()):
+		var a = points[i-1]
+		var b = points[i]
+
+		var oa = get_determinant(d - c, a - c)
+		var ob = get_determinant(d - b, d - c)
+		var oc = get_determinant(a - b, a - c)
+		var od = get_determinant(b - d, b - a)
+
+		if (sgn(oa) != sgn(ob) && sgn(oc) != sgn(od)):
+			inter.append((a * ob - b * oa) / (ob - oa))
+			## Only runs when the lines intersect.
+	
+	return inter
+	var inter = []
 	for i in range(points.size()):
 		var a = points[i-1]
 		var b = points[i]
 
 		var oa = cross(d,a,c)
+		
+		# get_determinant(d - c, a - c)
 		var ob = cross(d,b,c)
+		# get_determinant(d - b, d - c)
 		var oc = cross(a,b,c)
+		# get_determinant(a - b, a - c)
 		var od = cross(b,d,a)
+		# get_determinant(b - d, b - a)
 
 		if (sgn(oa) != sgn(ob) && sgn(oc) != sgn(od)):
-			ans.append((a * ob - b * oa) / (ob - oa))
-
-	return ans
+			inter.append((a * ob - b * oa) / (ob - oa))
+			## Only runs when the lines intersect.
+	
+	return inter
 
 var flag = true
 
