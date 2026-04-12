@@ -9,9 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://dmktf342p1kkl" path="res://scenes/black_hole.tscn" id="5_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://b6h4t5quexpt5" path="res://assets/arrow.png" id="8_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://b21d4powvh5m" path="res://scenes/pause_screen.tscn" id="8_gee14"]
-[ext_resource type="Script" path="res://scripts/game_camera.gd" id="8_kvuet"]
-[ext_resource type="Script" path="res://scripts/goal_locator.gd" id="9_vtaks"]
+[ext_resource type="Script" uid="uid://c3twqfo5ifjtr" path="res://scripts/game_camera.gd" id="8_kvuet"]
+[ext_resource type="Script" uid="uid://cvydu0app6xv0" path="res://scripts/goal_locator.gd" id="9_vtaks"]
 [ext_resource type="PackedScene" uid="uid://darh2j7irx2ft" path="res://scenes/seperation_particles.tscn" id="11_trtic"]
+[ext_resource type="Script" uid="uid://d3nucsik4uohl" path="res://scripts/goal_planet.gd" id="14_trtic"]
 [ext_resource type="AudioStream" uid="uid://cesjcoq41xy0v" path="res://assets/sounds/space_static.mp3" id="13_kvuet"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trtic"]
@@ -31,12 +32,12 @@ texture_region_size = Vector2i(512, 512)
 tile_size = Vector2i(512, 512)
 sources/0 = SubResource("TileSetAtlasSource_trtic")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ir15t"]
+radius = 388.16104
+
 [node name="Game" type="Node2D" unique_id=1375401336]
 
 [node name="Obstacles" type="Node" parent="." unique_id=1771933786]
-
-[node name="GoalPlanet" parent="." unique_id=1171461319 instance=ExtResource("3_lnu2h")]
-position = Vector2(13, -2473)
 
 [node name="Background" type="TileMapLayer" parent="." unique_id=1114409673]
 z_index = -1
@@ -84,5 +85,20 @@ position = Vector2(1030, -991)
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=706130883]
 stream = ExtResource("13_kvuet")
 bus = &"Music"
+rotation = 0.3269711
+
+[node name="GoalPlanet" parent="." unique_id=1077245034 instance=ExtResource("3_lnu2h")]
+position = Vector2(24, -2338)
+
+[node name="Area2D" type="Area2D" parent="GoalPlanet" unique_id=1788369971]
+position = Vector2(8, 8)
+script = ExtResource("14_trtic")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalPlanet/Area2D" unique_id=1820200627]
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_ir15t")
+metadata/_edit_lock_ = true
 
 [connection signal="slice" from="Player/Slicer" to="Player" method="_on_slicer_slice"]
+[connection signal="body_entered" from="GoalPlanet/Area2D" to="GoalPlanet/Area2D" method="_on_body_entered"]
