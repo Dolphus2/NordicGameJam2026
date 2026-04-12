@@ -9269,7 +9269,7 @@ script = ExtResource("1_0lrm4")
 [node name="TileMap" type="TileMap" parent="." unique_id=2117822537]
 tile_set = SubResource("TileSet_2l6cc")
 format = 2
-layer_0/tile_data = PackedInt32Array(0, 0, 0, 65536, 0, 1, 65537, 131072, 1, 65538, 131072, 0, 1, 65536, 2, 2, 0, 2, -1, 0, 2, -65536, 65536, 1, 65535, 65536, 2, 131071, 131072, 0, -65535, 131072, 0, -65534, 65536, 2, 3, 0, 1, -65533, 0, 1, 65539, 131072, 1, 131075, 131072, 1, 196607, 65536, 2, 131072, 65536, 2, 131073, 65536, 2, 131074, 65536, 2)
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 65536, 0, 1, 65537, 131072, 1, 65538, 131072, 0, 1, 65536, 2, 2, 0, 2, -1, 0, 2, -65536, 65536, 1, 65535, 65536, 2, 131071, 131072, 0, -65535, 131072, 0, -65534, 65536, 2)
 
 [node name="Text" type="TextureRect" parent="." unique_id=2051660145]
 layout_mode = 1
@@ -9307,10 +9307,9 @@ offset_bottom = 6.1035156e-05
 grow_horizontal = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Planet" unique_id=893550901]
-position = Vector2(83, 1235)
-scale = Vector2(1.2586956, 1.2586956)
+position = Vector2(51, 858)
 sprite_frames = SubResource("SpriteFrames_qnnn4")
 autoplay = "default"
-frame_progress = 0.672944
+frame_progress = 0.53713524
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
