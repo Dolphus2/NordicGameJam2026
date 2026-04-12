@@ -75,6 +75,7 @@ func get_new_points(points : PackedVector2Array, c : Vector2, d : Vector2):
 	return inter
 	
 func get_cut_polygons(points : PackedVector2Array, c : Vector2, d : Vector2) -> Array[PackedVector2Array]:
+	var polys: Array[PackedVector2Array] = []
 	var poly1: PackedVector2Array
 	var poly2: PackedVector2Array
 	var flag = true
