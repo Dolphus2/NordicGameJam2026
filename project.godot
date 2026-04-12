@@ -25,6 +25,8 @@ Music="uid://dahhnbl7goc0m"
 
 [display]
 
+window/size/viewport_width=1780
+window/size/viewport_height=1000
 window/stretch/mode="canvas_items"
 
 [input]
