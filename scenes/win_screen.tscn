@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://krtjoi21nja6" path="res://assets/background_tiles.png" id="1_wv5lq"]
 [ext_resource type="Texture2D" uid="uid://8irtn3fpn3l5" path="res://assets/x.png" id="2_e41g7"]
 [ext_resource type="Texture2D" uid="uid://cg0rw7c2bewby" path="res://assets/x_hovered.png" id="3_0lrm4"]
-[ext_resource type="PackedScene" uid="uid://c7uhjyid0swon" path="res://scenes/planet.tscn" id="4_6s1kg"]
 [ext_resource type="Texture2D" uid="uid://cki7llxmqkqw2" path="res://assets/end_screen.png" id="6_6s1kg"]
+[ext_resource type="Texture2D" uid="uid://cjlrk8j78wg6q" path="res://assets/planet_tiles.png" id="6_bqn3h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_erk2x"]
 texture = ExtResource("1_wv5lq")
@@ -9231,15 +9231,37 @@ texture_region_size = Vector2i(512, 512)
 tile_size = Vector2i(512, 512)
 sources/0 = SubResource("TileSetAtlasSource_erk2x")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggt7d"]
+atlas = ExtResource("6_bqn3h")
+region = Rect2(0, 0, 920, 920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0k1rn"]
+atlas = ExtResource("6_bqn3h")
+region = Rect2(920, 0, 920, 920)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qnnn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggt7d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0k1rn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="WinScreen" type="Control" unique_id=7281513]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -21.0
-offset_top = -8.0
+offset_top = 10.0
 offset_right = -21.0
-offset_bottom = -8.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0lrm4")
@@ -9249,34 +9271,24 @@ tile_set = SubResource("TileSet_2l6cc")
 format = 2
 layer_0/tile_data = PackedInt32Array(0, 0, 0, 65536, 0, 1, 65537, 131072, 1, 65538, 131072, 0, 1, 65536, 2, 2, 0, 2, -1, 0, 2, -65536, 65536, 1, 65535, 65536, 2, 131071, 131072, 0, -65535, 131072, 0, -65534, 65536, 2)
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=2051660145]
-layout_mode = 0
-anchor_left = 0.5269097
-anchor_top = 1.2685186
-anchor_right = 0.5616319
-anchor_bottom = 1.3302469
-offset_top = -6.1035156e-05
-expand_mode = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="Planet" parent="TextureRect" unique_id=543335508 instance=ExtResource("4_6s1kg")]
-
-[node name="text" type="Sprite2D" parent="TextureRect" unique_id=1122889883]
-position = Vector2(-16, -556)
-scale = Vector2(0.38985512, 0.38985512)
+[node name="Text" type="TextureRect" parent="." unique_id=2051660145]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1892361
+anchor_top = -0.015432099
+anchor_right = 0.85937494
+anchor_bottom = 0.87808645
 texture = ExtResource("6_6s1kg")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureButton" type="TextureButton" parent="." unique_id=1189173199]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 265.0
-offset_top = -387.0
-offset_right = 446.5935
-offset_bottom = -213.0
+anchors_preset = -1
+anchor_left = 0.7664931
+anchor_top = 0.44598764
+anchor_right = 0.9241263
+anchor_bottom = 0.71450615
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("2_e41g7")
@@ -9284,5 +9296,20 @@ texture_pressed = ExtResource("3_0lrm4")
 texture_hover = ExtResource("3_0lrm4")
 ignore_texture_size = true
 stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Planet" type="TextureRect" parent="." unique_id=443102988]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_bottom = 6.1035156e-05
+grow_horizontal = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Planet" unique_id=893550901]
+position = Vector2(51, 858)
+sprite_frames = SubResource("SpriteFrames_qnnn4")
+autoplay = "default"
+frame_progress = 0.53713524
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

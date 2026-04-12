@@ -23,6 +23,10 @@ buses/default_bus_layout="uid://cysvdpy47ru40"
 
 Music="uid://dahhnbl7goc0m"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [input]
 
 move_left={
