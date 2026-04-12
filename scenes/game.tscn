@@ -10,11 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://b6h4t5quexpt5" path="res://assets/arrow.png" id="8_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://b21d4powvh5m" path="res://scenes/pause_screen.tscn" id="8_gee14"]
 [ext_resource type="Script" uid="uid://c3twqfo5ifjtr" path="res://scripts/game_camera.gd" id="8_kvuet"]
-[ext_resource type="Script" path="res://scripts/goal_locator.gd" id="9_vtaks"]
+[ext_resource type="Script" uid="uid://cvydu0app6xv0" path="res://scripts/goal_locator.gd" id="9_vtaks"]
 [ext_resource type="PackedScene" uid="uid://darh2j7irx2ft" path="res://scenes/seperation_particles.tscn" id="11_trtic"]
 [ext_resource type="AudioStream" uid="uid://0q67o1bccbtc" path="res://assets/audio/space-ranger-moire-main-version-03-04-10814.mp3" id="13_ir15t"]
 [ext_resource type="AudioStream" uid="uid://cesjcoq41xy0v" path="res://assets/sounds/space_static.mp3" id="13_kvuet"]
-[ext_resource type="Script" path="res://scripts/goal_planet.gd" id="14_trtic"]
+[ext_resource type="Script" uid="uid://d3nucsik4uohl" path="res://scripts/goal_planet.gd" id="14_trtic"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ir15t"]
+radius = 320.39975
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trtic"]
 texture = ExtResource("1_kvuet")
@@ -33,8 +36,80 @@ texture_region_size = Vector2i(512, 512)
 tile_size = Vector2i(512, 512)
 sources/0 = SubResource("TileSetAtlasSource_trtic")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ir15t"]
-radius = 320.39975
+[sub_resource type="Animation" id="Animation_ir15t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-150.00049, -6523)]
+}
+
+[sub_resource type="Animation" id="Animation_ca42v"]
+resource_name = "back_forth"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-150.00049, -6523), Vector2(2728.9998, -5883)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rysoc"]
+_data = {
+&"RESET": SubResource("Animation_ir15t"),
+&"back_forth": SubResource("Animation_ca42v")
+}
+
+[sub_resource type="Animation" id="Animation_dinhu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2689, -6698)]
+}
+
+[sub_resource type="Animation" id="Animation_kvuet"]
+resource_name = "back_and_forth"
+length = 1.9666667
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.9666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2689, -6698), Vector2(652.99976, -7128)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_trtic"]
+_data = {
+&"RESET": SubResource("Animation_dinhu"),
+&"back_and_forth": SubResource("Animation_kvuet")
+}
 
 [node name="Game" type="Node2D" unique_id=1375401336]
 
@@ -44,7 +119,26 @@ radius = 320.39975
 z_index = -1
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAAAP//AAAAAAEAAAD//wEAAAAAAAEAAAD9/wAAAAAAAAEAAAD8//7/AAACAAIAAAD8/wIAAAAAAAEAAAABAAIAAAAAAAEAAAACAP7/AAAAAAEAAAD+/wAAAAABAAEAAAABAP7/AAABAAEAAAAAAAIAAAABAAEAAAD///7/AAACAAEAAAD+////AAACAAEAAAD9/wEAAAACAAEAAAD8/wEAAAACAAEAAAAAAAAAAAABAAAAAGABAP//AAACAAEAAAACAAEAAAACAAEAAAD+/wEAAAABAAIAAAAAAAEAAAABAAIAAAD//wAAAAABAAIAAAD/////AAAAAAIAAAD+//7/AAABAAIAAAD8////AAABAAIAAAAAAP7/AAABAAIAAAACAP//AAAAAAEAAAABAAAAAAAAAAEAAAABAAEAAAABAAAAAAD9////AAAAAAEAAAD9//7/AAAAAAEAAAD8/wAAAAAAAAEAAAD9/wIAAAABAAAAAGD+/wIAAAAAAAEAAAD//wIAAAAAAAEAAAACAAAAAAAAAAEAAAACAAIAAAAAAAEAAAA=")
+
+[node name="GoalPlanet" parent="." unique_id=1171461319 instance=ExtResource("3_lnu2h")]
+position = Vector2(89.00003, -5215)
+scale = Vector2(0.42105234, 0.42105234)
+
+[node name="Area2D" type="Area2D" parent="GoalPlanet" unique_id=1788369971]
+position = Vector2(8, 8)
+script = ExtResource("14_trtic")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalPlanet/Area2D" unique_id=1820200627]
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_ir15t")
+metadata/_edit_lock_ = true
+
+[node name="TileMap" type="TileMap" parent="." unique_id=324097902]
 tile_set = SubResource("TileSet_p57ef")
+format = 2
+layer_0/name = "Background"
+layer_0/tile_data = PackedInt32Array(-65536, 0, 1, 131071, 0, 1, 65533, 0, 1, -65540, 131072, 2, 196604, 0, 1, 131073, 0, 1, -131070, 0, 1, 65534, 65536, 1, -131071, 65536, 1, 131072, 65536, 1, -65537, 131072, 1, -2, 131072, 1, 131069, 131072, 1, 131068, 131072, 1, 0, 65536, 1610612736, -65535, 131072, 1, 65538, 131072, 1, 131070, 65536, 2, 65536, 65536, 2, 65535, 65536, 2, -1, 0, 2, -65538, 65536, 2, -4, 65536, 2, -131072, 65536, 2, -65534, 0, 1, 1, 0, 1, 65537, 65536, 0, -3, 0, 1, -65539, 0, 1, 65532, 0, 1, 196605, 65536, 1610612736, 196606, 0, 1, 196607, 0, 1, 2, 0, 1, 131074, 0, 1, 262139, 131072, 1, 262140, 131072, 1, 262141, 131072, 1, 262142, 131072, 1, 262143, 131072, 1, 196608, 131072, 1, 196609, 131072, 1, 196610, 131072, 1, 327672, 0, 1, 393208, 0, 1, 458744, 0, 1, 524280, 0, 1, 589816, 0, 1, 655352, 0, 1, 720888, 0, 1, 327673, 131072, 1, 393209, 131072, 1, 458745, 131072, 1, 524281, 65536, 1, 589817, 131072, 1, 655353, 131072, 1, 720889, 131072, 1, 327674, 65536, 0, 393210, 131072, 1, 458746, 131072, 1, 524282, 131072, 1, 589818, 131072, 1, 655354, 131072, 1, 720890, 131072, 1, 327675, 0, 1, 393211, 0, 1, 458747, 0, 1, 524283, 0, 1, 589819, 0, 1, 655355, 0, 1, 720891, 0, 1, 327676, 131072, 1, 393212, 131072, 1, 458748, 131072, 1, 524284, 131072, 1, 589820, 131072, 1, 655356, 131072, 1, 720892, 131072, 2, 327677, 131072, 1, 393213, 131072, 1, 458749, 131072, 1, 524285, 131072, 1, 589821, 131072, 1, 655357, 131072, 1, 720893, 131072, 1, 327678, 0, 1, 393214, 0, 1, 458750, 0, 1, 524286, 65536, 0, 589822, 0, 1, 655358, 0, 1, 720894, 0, 1, 327679, 131072, 1, 393215, 131072, 1, 458751, 131072, 1, 524287, 131072, 1, 589823, 131072, 1, 655359, 131072, 1, 720895, 131072, 1, 262144, 131072, 1, 327680, 131072, 1, 393216, 131072, 1, 458752, 131072, 1, 524288, 131072, 1, 589824, 131072, 1, 655360, 131072, 1, 262145, 0, 1, 327681, 0, 1, 393217, 0, 1, 458753, 0, 1, 524289, 0, 1, 589825, 0, 1, 655361, 0, 1, 262146, 131072, 1, 327682, 131072, 1, 393218, 131072, 1, 458754, 131072, 1, 524290, 65536, 0, 589826, 131072, 1, 655362, 131072, 1, 262147, 131072, 1, 327683, 131072, 2, 393219, 131072, 1, 458755, 131072, 1, 524291, 131072, 1, 589827, 131072, 1, 655363, 131072, 1, 262148, 0, 1, 327684, 0, 1, 393220, 0, 1, 458756, 0, 1, 524292, 0, 1, 589828, 0, 1, 655364, 0, 1, 262149, 131072, 1, 327685, 131072, 1, 393221, 131072, 1, 458757, 131072, 1, 524293, 131072, 1, 589829, 131072, 1, 655365, 131072, 1, 262150, 131072, 1, 327686, 131072, 1, 393222, 65536, 1, 458758, 131072, 1, 524294, 131072, 1, 589830, 131072, 1, 655366, 131072, 1, 262151, 0, 1, 327687, 0, 1, 393223, 0, 1, 458759, 0, 1, 524295, 0, 1, 589831, 0, 1, 655367, 0, 1, 262152, 131072, 1, 327688, 131072, 1, 393224, 131072, 1, 458760, 131072, 1, 524296, 131072, 1, 589832, 131072, 1, 655368, 131072, 1, -262156, 131072, 1, -196619, 131072, 1, -327690, 0, 0, -262154, 131072, 1, -65548, 0, 1, -11, 65536, 2, -131082, 131072, 1, -65546, 131072, 1, 131060, 131072, 1, 196597, 131072, 1, 65526, 131072, 1, 131062, 131072, 1, 262134, 131072, 1, -262153, 131072, 1, -196616, 131072, 1, -327687, 0, 1, -262151, 131072, 1, -65545, 0, 1, -8, 65536, 2, -131079, 131072, 1, -65543, 131072, 1, 131063, 131072, 1, 196600, 131072, 1, 65529, 131072, 1, 131065, 131072, 1, 262137, 131072, 1, -262150, 131072, 1, -196613, 131072, 1, -65542, 131072, 1, -5, 65536, 2, 131066, 131072, 1, 196603, 131072, 1, -393212, 131072, 1, -262141, 131072, 1, -196604, 131072, 1, -327675, 131072, 1, -262139, 131072, 1, -65533, 131072, 1, 4, 131072, 1, -131067, 0, 1, -65531, 131072, 1, 131075, 131072, 1, 196612, 131072, 1, 65541, 131072, 1, 131077, 131072, 1, -393209, 131072, 1, -262138, 65536, 1, -196601, 131072, 1, -327672, 131072, 1, -262136, 131072, 1, -65530, 131072, 1, 7, 65536, 0, -131064, 131072, 1, -65528, 0, 1, 131078, 131072, 1, 196615, 131072, 1, 65544, 131072, 1, 131080, 131072, 1, -262135, 0, 0, -65527, 131072, 1, 131081, 131072, 1, -327692, 0, 1, -196620, 0, 1, -131084, 131072, 1, -12, 131072, 1, 65524, 131072, 1, 196596, 131072, 1, 262132, 131072, 1, -327691, 131072, 1, -262155, 65536, 2, -131083, 0, 0, -65547, 131072, 1, 65525, 131072, 1, 131061, 131072, 1, 262133, 131072, 1, -196618, 131072, 1, -10, 131072, 1, 196598, 131072, 1, -327689, 0, 1, -196617, 0, 1, -131081, 131072, 1, -9, 131072, 1, 65527, 65536, 1, 196599, 131072, 1, 262135, 65536, 1, -327688, 131072, 1, -262152, 65536, 2, -131080, 65536, 2, -65544, 131072, 1, 65528, 131072, 1, 131064, 131072, 1, 262136, 131072, 1, -196615, 0, 1, -7, 131072, 1, 196601, 131072, 1, -327686, 0, 1, -196614, 65536, 1, -131078, 131072, 1, -6, 131072, 1, 65530, 131072, 1, 196602, 0, 0, 262138, 131072, 1, -327685, 131072, 1, -262149, 65536, 2, -131077, 65536, 2, -65541, 131072, 1, 65531, 131072, 1, 131067, 131072, 1, -458749, 131072, 1, -393213, 131072, 1, -327677, 131072, 1, -196605, 131072, 1, -131069, 131072, 1, 3, 131072, 1, 65539, 131072, 1, 196611, 131072, 1, -458748, 131072, 1, -327676, 131072, 1, -262140, 131072, 1, -131068, 131072, 1, -65532, 131072, 1, 65540, 131072, 1, 131076, 131072, 1, -458747, 0, 1, -393211, 131072, 1, -196603, 131072, 1, 5, 131072, 1, 196613, 131072, 1, -458746, 131072, 1, -393210, 131072, 1, -327674, 131072, 1, -196602, 131072, 1, -131066, 131072, 1, 6, 131072, 1, 65542, 131072, 1, 196614, 131072, 1, -458745, 0, 0, -327673, 131072, 1, -262137, 131072, 1, -131065, 131072, 1, -65529, 131072, 1, 65543, 131072, 1, 131079, 131072, 1, -458744, 131072, 1, -393208, 131072, 1, -196600, 131072, 1, 8, 131072, 1, 196616, 131072, 1, -458743, 131072, 1, -393207, 131072, 1, -327671, 131072, 1, -196599, 131072, 1, -131063, 131072, 1, 9, 131072, 1, 65545, 131072, 1, 196617, 131072, 1, 262153, 131072, 1, 327689, 131072, 1, 393225, 131072, 1, 458761, 131072, 1, 524297, 131072, 1, 589833, 131072, 1, 655369, 131072, 1, 327668, 131072, 1, 393204, 131072, 1, 458740, 131072, 1, 524276, 131072, 1, 589812, 131072, 1, 655348, 131072, 1, 720884, 131072, 1, 327669, 131072, 1, 393205, 131072, 1, 458741, 131072, 2, 524277, 131072, 1, 589813, 131072, 1, 655349, 131072, 1, 720885, 131072, 1, 327670, 131072, 1, 393206, 131072, 1, 458742, 131072, 1, 524278, 131072, 1, 589814, 131072, 1, 655350, 131072, 1, 720886, 131072, 1, 327671, 131072, 1, 393207, 131072, 1, 458743, 131072, 1, 524279, 131072, 1, 589815, 131072, 1, 655351, 131072, 1, 720887, 131072, 1, -720900, 131072, 1, -655364, 65536, 2, -589828, 0, 1, -524292, 131072, 0, -458756, 0, 1, -393220, 131072, 1, -327684, 65536, 2, -262148, 131072, 1, -196612, 131072, 1, -131076, 131072, 1, -720899, 131072, 1, -655363, 65536, 1, -589827, 131072, 1, -524291, 131072, 1, -458755, 131072, 1, -393219, 131072, 1, -327683, 0, 2, -262147, 131072, 1, -196611, 131072, 2, -131075, 131072, 1, -720898, 131072, 1, -655362, 131072, 1, -589826, 65536, 0, -524290, 131072, 1, -458754, 131072, 1, -393218, 131072, 1, -327682, 131072, 1, -262146, 131072, 1, -196610, 131072, 1, -131074, 131072, 1, -720897, 131072, 1, -655361, 131072, 1, -589825, 131072, 1, -524289, 0, 2, -458753, 131072, 1, -393217, 131072, 1, -327681, 65536, 0, -262145, 131072, 1, -196609, 131072, 1, -131073, 131072, 1, -786432, 131072, 1, -720896, 131072, 1, -655360, 131072, 1, -589824, 131072, 1, -524288, 131072, 1, -458752, 131072, 1, -393216, 0, 1, -327680, 131072, 1, -262144, 131072, 1, -196608, 131072, 1, -786431, 65536, 0, -720895, 131072, 1, -655359, 131072, 1, -589823, 131072, 1, -524287, 131072, 1, -458751, 131072, 1, -393215, 0, 0, -327679, 131072, 1, -262143, 131072, 1, -196607, 0, 0, -786430, 131072, 1, -720894, 131072, 1, -655358, 0, 1, -589822, 131072, 1, -524286, 131072, 2, -458750, 131072, 1, -393214, 131072, 1, -327678, 131072, 1, -262142, 131072, 1, -196606, 131072, 1, -917516, 0, 0, -851980, 131072, 0, -786444, 131072, 1, -720908, 131072, 1, -655372, 131072, 1, -589836, 0, 1, -524300, 131072, 1, -458764, 0, 1, -393228, 131072, 1, -917515, 131072, 1, -851979, 131072, 1, -786443, 131072, 1, -720907, 131072, 1, -655371, 131072, 1, -589835, 131072, 1, -524299, 65536, 2, -458763, 131072, 1, -393227, 65536, 2, -917514, 131072, 1, -851978, 131072, 1, -786442, 0, 1, -720906, 131072, 1, -655370, 131072, 0, -589834, 131072, 1, -524298, 131072, 1, -458762, 131072, 1, -393226, 131072, 1, -917513, 0, 1, -851977, 131072, 0, -786441, 131072, 1, -720905, 131072, 1, -655369, 0, 1, -589833, 65536, 1, -524297, 131072, 1, -458761, 131072, 1, -393225, 131072, 1, -917512, 131072, 1, -851976, 131072, 1, -786440, 0, 1, -720904, 131072, 0, -655368, 131072, 1, -589832, 131072, 1, -524296, 65536, 2, -458760, 65536, 2, -393224, 65536, 2, -917511, 0, 1, -851975, 131072, 1, -786439, 131072, 0, -720903, 0, 1, -655367, 131072, 1, -589831, 131072, 0, -524295, 131072, 1, -458759, 65536, 0, -393223, 131072, 1, -917510, 131072, 1, -851974, 131072, 1, -786438, 131072, 1, -720902, 65536, 0, -655366, 131072, 1, -589830, 0, 1, -524294, 65536, 2, -458758, 0, 1, -393222, 0, 2, -917509, 131072, 1, -851973, 131072, 1, -786437, 131072, 0, -720901, 65536, 2, -655365, 0, 1, -589829, 131072, 1, -524293, 0, 1, -458757, 0, 0, -393221, 65536, 2, -917508, 65536, 0, -851972, 0, 1, -786436, 131072, 1, -917507, 0, 1, -851971, 131072, 1, -786435, 131072, 0, -917506, 131072, 1, -851970, 131072, 1, -786434, 131072, 1, -917505, 65536, 2, -851969, 131072, 1, -786433, 131072, 1, -983040, 0, 0, -917504, 131072, 1, -851968, 131072, 1, -983039, 131072, 1, -917503, 131072, 1, -851967, 131072, 1, -983038, 65536, 2, -917502, 131072, 1, -851966, 131072, 1, -983037, 65536, 2, -917501, 131072, 1, -851965, 131072, 1, -786429, 131072, 1, -720893, 65536, 2, -655357, 131072, 1, -589821, 131072, 1, -524285, 131072, 1, -983036, 131072, 1, -917500, 131072, 1, -851964, 131072, 1, -786428, 131072, 1, -720892, 131072, 2, -655356, 0, 1, -589820, 131072, 1, -524284, 131072, 1, -983035, 65536, 2, -917499, 131072, 1, -851963, 131072, 1, -786427, 131072, 1, -720891, 131072, 1, -655355, 131072, 1, -589819, 65536, 2, -524283, 131072, 1, -983034, 65536, 2, -917498, 131072, 1, -851962, 131072, 0, -786426, 131072, 1, -720890, 131072, 1, -655354, 131072, 1, -589818, 65536, 2, -524282, 131072, 1, -983033, 131072, 1, -917497, 131072, 1, -851961, 131072, 0, -786425, 131072, 0, -720889, 65536, 2, -655353, 131072, 0, -589817, 131072, 1, -524281, 0, 1, -983032, 65536, 2, -917496, 131072, 1, -851960, 65536, 0, -786424, 131072, 1, -720888, 131072, 1, -655352, 131072, 1, -589816, 131072, 1, -524280, 0, 1, -983031, 65536, 2, -917495, 131072, 1, -851959, 131072, 1, -786423, 131072, 1, -720887, 65536, 2, -655351, 131072, 1, -589815, 65536, 2, -524279, 131072, 1)
 
 [node name="Player" parent="." unique_id=1597567515 instance=ExtResource("1_uwrxv")]
 position = Vector2(2, -9)
@@ -66,18 +160,492 @@ script = ExtResource("9_vtaks")
 
 [node name="SeperationParticles" parent="Player" unique_id=1995349642 instance=ExtResource("11_trtic")]
 
-[node name="asteroids" parent="." unique_id=543335508 instance=ExtResource("4_p57ef")]
-position = Vector2(-1134, 1096)
+[node name="Planets" type="Node2D" parent="." unique_id=1599170929]
 
-[node name="white_hole" parent="." unique_id=1477147676 instance=ExtResource("2_dinhu")]
-position = Vector2(880, 728)
+[node name="planet" parent="Planets" unique_id=1542240377 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.92083126, 0.3942801, 0.7966116, 1)
+position = Vector2(408.99994, -1971)
+scale = Vector2(0.110386096, 0.110386096)
 
-[node name="black_hole" parent="." unique_id=1964572630 instance=ExtResource("5_u5sy4")]
-position = Vector2(-1303, -1198)
+[node name="planet7" parent="Planets" unique_id=1039070073 instance=ExtResource("3_lnu2h")]
+modulate = Color(1, 0.6876584, 0.36746103, 1)
+position = Vector2(4, -1833)
+scale = Vector2(0.36423552, 0.36423552)
 
-[node name="planet" parent="." unique_id=1542240377 instance=ExtResource("3_lnu2h")]
-modulate = Color(0.24104936, 0.1023923, 0.24104936, 1)
-position = Vector2(1030, -991)
+[node name="planet14" parent="Planets" unique_id=2076905824 instance=ExtResource("3_lnu2h")]
+modulate = Color(1, 0.6876584, 0.36746103, 1)
+position = Vector2(1269.0001, -346.00006)
+scale = Vector2(0.36423552, 0.36423552)
+
+[node name="planet12" parent="Planets" unique_id=1636185903 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.61200315, 0.6927333, 1, 1)
+position = Vector2(-553, -1369.0001)
+scale = Vector2(0.35407904, 0.35407904)
+
+[node name="planet13" parent="Planets" unique_id=761118583 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.61200315, 0.6927333, 1, 1)
+position = Vector2(-701, -1097)
+scale = Vector2(0.1356961, 0.1356961)
+
+[node name="planet8" parent="Planets" unique_id=1383264112 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.37046537, 0.8561479, 0.80416626, 1)
+position = Vector2(287.99988, -2081)
+scale = Vector2(0.21471435, 0.21471435)
+
+[node name="planet9" parent="Planets" unique_id=1016472933 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.99999994, 0.42194822, 0.19121155, 1)
+position = Vector2(-428.99997, -3728)
+scale = Vector2(0.08183306, 0.08302216)
+
+[node name="planet10" parent="Planets" unique_id=1546856854 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.8651912, 0.4882543, 1, 1)
+position = Vector2(-660, -3335)
+scale = Vector2(0.2700208, 0.27394447)
+
+[node name="planet11" parent="Planets" unique_id=857873514 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.37046537, 0.8561479, 0.80416626, 1)
+position = Vector2(-376.00012, -3583)
+scale = Vector2(0.15917535, 0.16148831)
+
+[node name="planet2" parent="Planets" unique_id=463343235 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.49012017, 0.26546195, 0.80523103, 1)
+position = Vector2(251, -4632)
+scale = Vector2(0.20533964, 0.20344391)
+
+[node name="planet3" parent="Planets" unique_id=1939311985 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.21570516, 0.64303696, 0.87772614, 1)
+position = Vector2(661, -802.0001)
+scale = Vector2(0.15395537, 0.15253405)
+
+[node name="planet4" parent="Planets" unique_id=1002964674 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.8852906, 0.4117072, 0.66088533, 1)
+position = Vector2(-739.00006, -400.99997)
+scale = Vector2(0.3797781, 0.37627196)
+
+[node name="planet5" parent="Planets" unique_id=1185498518 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.40259457, 0.67931956, 0.40748003, 1)
+position = Vector2(796, 478)
+scale = Vector2(0.55786854, 0.5527183)
+
+[node name="planet6" parent="Planets" unique_id=1952727254 instance=ExtResource("3_lnu2h")]
+modulate = Color(0.33725876, 0.33979794, 0.33917046, 1)
+position = Vector2(355, 70)
+scale = Vector2(0.120576605, 0.119463444)
+
+[node name="WhiteHoles" type="Node2D" parent="." unique_id=396869530]
+
+[node name="white_hole" parent="WhiteHoles" unique_id=1477147676 instance=ExtResource("2_dinhu")]
+position = Vector2(-2387, -1060)
+scale = Vector2(0.26801282, 0.26801282)
+
+[node name="white_hole2" parent="WhiteHoles" unique_id=903978062 instance=ExtResource("2_dinhu")]
+position = Vector2(-1260.9999, -4469)
+scale = Vector2(0.76067394, 0.76067394)
+
+[node name="white_hole3" parent="WhiteHoles" unique_id=1110969592 instance=ExtResource("2_dinhu")]
+position = Vector2(-1279, 1264)
+rotation = -0.00080615655
+scale = Vector2(1.8241789, 1.8241789)
+
+[node name="BlackHoles" type="Node2D" parent="." unique_id=1452565596]
+
+[node name="black_hole" parent="BlackHoles" unique_id=1964572630 instance=ExtResource("5_u5sy4")]
+position = Vector2(1570, -1882)
+scale = Vector2(0.5473638, 0.5473638)
+
+[node name="black_hole4" parent="BlackHoles" unique_id=1286960950 instance=ExtResource("5_u5sy4")]
+position = Vector2(1322, -3099)
+scale = Vector2(0.5473638, 0.5473638)
+
+[node name="black_hole5" parent="BlackHoles" unique_id=2114475801 instance=ExtResource("5_u5sy4")]
+position = Vector2(-1952, -2646)
+scale = Vector2(0.5473638, 0.5473638)
+
+[node name="black_hole2" parent="BlackHoles" unique_id=784983135 instance=ExtResource("5_u5sy4")]
+position = Vector2(949, 1445)
+scale = Vector2(0.567616, 0.567616)
+
+[node name="Asteroids" type="Node2D" parent="." unique_id=1684915007]
+
+[node name="AsteroidBelt" type="Node2D" parent="Asteroids" unique_id=534318430]
+position = Vector2(-212, -203)
+scale = Vector2(0.5473638, 0.5473638)
+
+[node name="asteroids3" parent="Asteroids/AsteroidBelt" unique_id=543335508 instance=ExtResource("4_p57ef")]
+position = Vector2(-381.00003, -368)
+rotation = 2.3527522
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids4" parent="Asteroids/AsteroidBelt" unique_id=475049998 instance=ExtResource("4_p57ef")]
+position = Vector2(-493, -222.99998)
+rotation = 2.9334722
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids5" parent="Asteroids/AsteroidBelt" unique_id=475486715 instance=ExtResource("4_p57ef")]
+position = Vector2(-354, -184)
+rotation = 4.385731
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids6" parent="Asteroids/AsteroidBelt" unique_id=1889930033 instance=ExtResource("4_p57ef")]
+position = Vector2(-535, -107.999954)
+rotation = 2.333494
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="asteroids7" parent="Asteroids/AsteroidBelt" unique_id=1546503890 instance=ExtResource("4_p57ef")]
+position = Vector2(-536, 23)
+rotation = 2.5233693
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids8" parent="Asteroids/AsteroidBelt" unique_id=1905176733 instance=ExtResource("4_p57ef")]
+position = Vector2(-659, 116)
+rotation = 3.1040893
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids9" parent="Asteroids/AsteroidBelt" unique_id=264841013 instance=ExtResource("4_p57ef")]
+position = Vector2(-799, 60.000004)
+rotation = 4.5563483
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids10" parent="Asteroids/AsteroidBelt" unique_id=669775466 instance=ExtResource("4_p57ef")]
+position = Vector2(-846, 243.99994)
+rotation = 2.504111
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="AsteroidBelt4" type="Node2D" parent="Asteroids" unique_id=1558496483]
+position = Vector2(-1004.99994, 101)
+rotation = 1.5102332
+scale = Vector2(0.5473639, 0.5473639)
+
+[node name="asteroids3" parent="Asteroids/AsteroidBelt4" unique_id=618571312 instance=ExtResource("4_p57ef")]
+position = Vector2(-381.00003, -368)
+rotation = 2.3527522
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids4" parent="Asteroids/AsteroidBelt4" unique_id=523684474 instance=ExtResource("4_p57ef")]
+position = Vector2(-493, -222.99998)
+rotation = 2.9334722
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids5" parent="Asteroids/AsteroidBelt4" unique_id=1053463568 instance=ExtResource("4_p57ef")]
+position = Vector2(-354, -184)
+rotation = 4.385731
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids6" parent="Asteroids/AsteroidBelt4" unique_id=1729066169 instance=ExtResource("4_p57ef")]
+position = Vector2(-535, -107.999954)
+rotation = 2.333494
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="asteroids7" parent="Asteroids/AsteroidBelt4" unique_id=1561201350 instance=ExtResource("4_p57ef")]
+position = Vector2(-536, 23)
+rotation = 2.5233693
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids8" parent="Asteroids/AsteroidBelt4" unique_id=1423741117 instance=ExtResource("4_p57ef")]
+position = Vector2(-659, 116)
+rotation = 3.1040893
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids9" parent="Asteroids/AsteroidBelt4" unique_id=739294197 instance=ExtResource("4_p57ef")]
+position = Vector2(-799, 60.000004)
+rotation = 4.5563483
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids10" parent="Asteroids/AsteroidBelt4" unique_id=447696202 instance=ExtResource("4_p57ef")]
+position = Vector2(-846, 243.99994)
+rotation = 2.504111
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="AsteroidBelt5" type="Node2D" parent="Asteroids" unique_id=1197454376]
+position = Vector2(-1238, -691)
+rotation = -2.94404
+scale = Vector2(0.5473638, 0.5473638)
+
+[node name="asteroids3" parent="Asteroids/AsteroidBelt5" unique_id=1565794846 instance=ExtResource("4_p57ef")]
+position = Vector2(-381.00003, -368)
+rotation = 2.3527522
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids4" parent="Asteroids/AsteroidBelt5" unique_id=1646847385 instance=ExtResource("4_p57ef")]
+position = Vector2(-493, -222.99998)
+rotation = 2.9334722
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids5" parent="Asteroids/AsteroidBelt5" unique_id=946539763 instance=ExtResource("4_p57ef")]
+position = Vector2(-354, -184)
+rotation = 4.385731
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids6" parent="Asteroids/AsteroidBelt5" unique_id=1983711815 instance=ExtResource("4_p57ef")]
+position = Vector2(-535, -107.999954)
+rotation = 2.333494
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="asteroids7" parent="Asteroids/AsteroidBelt5" unique_id=1423727090 instance=ExtResource("4_p57ef")]
+position = Vector2(-536, 23)
+rotation = 2.5233693
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids8" parent="Asteroids/AsteroidBelt5" unique_id=1324541452 instance=ExtResource("4_p57ef")]
+position = Vector2(-659, 116)
+rotation = 3.1040893
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids9" parent="Asteroids/AsteroidBelt5" unique_id=875688521 instance=ExtResource("4_p57ef")]
+position = Vector2(-799, 60.000004)
+rotation = 4.5563483
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids10" parent="Asteroids/AsteroidBelt5" unique_id=1232750641 instance=ExtResource("4_p57ef")]
+position = Vector2(-846, 243.99994)
+rotation = 2.504111
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="AsteroidBelt6" type="Node2D" parent="Asteroids" unique_id=841532137]
+position = Vector2(-516, -811)
+rotation = -1.5292767
+scale = Vector2(0.37388796, 0.37388796)
+
+[node name="asteroids3" parent="Asteroids/AsteroidBelt6" unique_id=1081300439 instance=ExtResource("4_p57ef")]
+position = Vector2(-381.00003, -368)
+rotation = 2.3527522
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids4" parent="Asteroids/AsteroidBelt6" unique_id=1670671781 instance=ExtResource("4_p57ef")]
+position = Vector2(-493, -222.99998)
+rotation = 2.9334722
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids5" parent="Asteroids/AsteroidBelt6" unique_id=68567629 instance=ExtResource("4_p57ef")]
+position = Vector2(-354, -184)
+rotation = 4.385731
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids6" parent="Asteroids/AsteroidBelt6" unique_id=948504953 instance=ExtResource("4_p57ef")]
+position = Vector2(-535, -107.999954)
+rotation = 2.333494
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="asteroids7" parent="Asteroids/AsteroidBelt6" unique_id=478382625 instance=ExtResource("4_p57ef")]
+position = Vector2(-536, 23)
+rotation = 2.5233693
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids8" parent="Asteroids/AsteroidBelt6" unique_id=396463306 instance=ExtResource("4_p57ef")]
+position = Vector2(-659, 116)
+rotation = 3.1040893
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids9" parent="Asteroids/AsteroidBelt6" unique_id=102292131 instance=ExtResource("4_p57ef")]
+position = Vector2(-799, 60.000004)
+rotation = 4.5563483
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids10" parent="Asteroids/AsteroidBelt6" unique_id=1215027724 instance=ExtResource("4_p57ef")]
+position = Vector2(-846, 243.99994)
+rotation = 2.504111
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="AsteroidBelt2" type="Node2D" parent="Asteroids" unique_id=467045472]
+position = Vector2(-449, -1856)
+scale = Vector2(0.5473638, 0.5473638)
+
+[node name="asteroids3" parent="Asteroids/AsteroidBelt2" unique_id=1284032059 instance=ExtResource("4_p57ef")]
+position = Vector2(-381.00003, -368)
+rotation = 2.3527522
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids4" parent="Asteroids/AsteroidBelt2" unique_id=303021751 instance=ExtResource("4_p57ef")]
+position = Vector2(-493, -222.99998)
+rotation = 2.9334722
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids5" parent="Asteroids/AsteroidBelt2" unique_id=1538393903 instance=ExtResource("4_p57ef")]
+position = Vector2(-354, -184)
+rotation = 4.385731
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids6" parent="Asteroids/AsteroidBelt2" unique_id=850410109 instance=ExtResource("4_p57ef")]
+position = Vector2(-535, -107.999954)
+rotation = 2.333494
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="asteroids7" parent="Asteroids/AsteroidBelt2" unique_id=391472945 instance=ExtResource("4_p57ef")]
+position = Vector2(-536, 23)
+rotation = 2.5233693
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids8" parent="Asteroids/AsteroidBelt2" unique_id=669916715 instance=ExtResource("4_p57ef")]
+position = Vector2(-659, 116)
+rotation = 3.1040893
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids9" parent="Asteroids/AsteroidBelt2" unique_id=1210532304 instance=ExtResource("4_p57ef")]
+position = Vector2(-799, 60.000004)
+rotation = 4.5563483
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids10" parent="Asteroids/AsteroidBelt2" unique_id=432826141 instance=ExtResource("4_p57ef")]
+position = Vector2(-846, 243.99994)
+rotation = 2.504111
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="AsteroidBelt3" type="Node2D" parent="Asteroids" unique_id=372948045]
+position = Vector2(-869.99994, -1537)
+scale = Vector2(0.5473638, 0.5473638)
+
+[node name="asteroids3" parent="Asteroids/AsteroidBelt3" unique_id=1555926193 instance=ExtResource("4_p57ef")]
+position = Vector2(-381.00003, -368)
+rotation = 2.3527522
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids4" parent="Asteroids/AsteroidBelt3" unique_id=1613766269 instance=ExtResource("4_p57ef")]
+position = Vector2(-493, -222.99998)
+rotation = 2.9334722
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids5" parent="Asteroids/AsteroidBelt3" unique_id=368678082 instance=ExtResource("4_p57ef")]
+position = Vector2(-354, -184)
+rotation = 4.385731
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids6" parent="Asteroids/AsteroidBelt3" unique_id=1810546423 instance=ExtResource("4_p57ef")]
+position = Vector2(-535, -107.999954)
+rotation = 2.333494
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="asteroids7" parent="Asteroids/AsteroidBelt3" unique_id=1417172943 instance=ExtResource("4_p57ef")]
+position = Vector2(-536, 23)
+rotation = 2.5233693
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids8" parent="Asteroids/AsteroidBelt3" unique_id=1663485502 instance=ExtResource("4_p57ef")]
+position = Vector2(-659, 116)
+rotation = 3.1040893
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids9" parent="Asteroids/AsteroidBelt3" unique_id=2048712432 instance=ExtResource("4_p57ef")]
+position = Vector2(-799, 60.000004)
+rotation = 4.5563483
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids10" parent="Asteroids/AsteroidBelt3" unique_id=2111102548 instance=ExtResource("4_p57ef")]
+position = Vector2(-846, 243.99994)
+rotation = 2.504111
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="asteroids3" parent="Asteroids" unique_id=512232919 instance=ExtResource("4_p57ef")]
+position = Vector2(746.00006, -3596)
+rotation = -0.22096992
+scale = Vector2(0.21117803, 0.21117803)
+
+[node name="AsteroidBelt7" type="Node2D" parent="Asteroids" unique_id=2090128468]
+position = Vector2(1561.0001, -3794)
+rotation = 1.356711
+scale = Vector2(0.5473638, 0.5473638)
+
+[node name="asteroids3" parent="Asteroids/AsteroidBelt7" unique_id=1223224710 instance=ExtResource("4_p57ef")]
+position = Vector2(-381.00003, -368)
+rotation = 2.3527522
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids4" parent="Asteroids/AsteroidBelt7" unique_id=1140837859 instance=ExtResource("4_p57ef")]
+position = Vector2(-493, -222.99998)
+rotation = 2.9334722
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids5" parent="Asteroids/AsteroidBelt7" unique_id=2081932529 instance=ExtResource("4_p57ef")]
+position = Vector2(-354, -184)
+rotation = 4.385731
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids6" parent="Asteroids/AsteroidBelt7" unique_id=1046300435 instance=ExtResource("4_p57ef")]
+position = Vector2(-535, -107.999954)
+rotation = 2.333494
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="asteroids7" parent="Asteroids/AsteroidBelt7" unique_id=2056993305 instance=ExtResource("4_p57ef")]
+position = Vector2(-536, 23)
+rotation = 2.5233693
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids8" parent="Asteroids/AsteroidBelt7" unique_id=2085816590 instance=ExtResource("4_p57ef")]
+position = Vector2(-659, 116)
+rotation = 3.1040893
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids9" parent="Asteroids/AsteroidBelt7" unique_id=1913814811 instance=ExtResource("4_p57ef")]
+position = Vector2(-799, 60.000004)
+rotation = 4.5563483
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids10" parent="Asteroids/AsteroidBelt7" unique_id=2019707223 instance=ExtResource("4_p57ef")]
+position = Vector2(-846, 243.99994)
+rotation = 2.504111
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="AsteroidBelt8" type="Node2D" parent="Asteroids" unique_id=592406382]
+position = Vector2(1021, -4095)
+rotation = 1.356711
+scale = Vector2(0.5473638, 0.5473638)
+
+[node name="asteroids3" parent="Asteroids/AsteroidBelt8" unique_id=2061321218 instance=ExtResource("4_p57ef")]
+position = Vector2(-381.00003, -368)
+rotation = 2.3527522
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids4" parent="Asteroids/AsteroidBelt8" unique_id=309702558 instance=ExtResource("4_p57ef")]
+position = Vector2(-493, -222.99998)
+rotation = 2.9334722
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids5" parent="Asteroids/AsteroidBelt8" unique_id=2005569560 instance=ExtResource("4_p57ef")]
+position = Vector2(-354, -184)
+rotation = 4.385731
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids6" parent="Asteroids/AsteroidBelt8" unique_id=170241546 instance=ExtResource("4_p57ef")]
+position = Vector2(-535, -107.999954)
+rotation = 2.333494
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="asteroids7" parent="Asteroids/AsteroidBelt8" unique_id=1301776828 instance=ExtResource("4_p57ef")]
+position = Vector2(-536, 23)
+rotation = 2.5233693
+scale = Vector2(0.6211355, 0.6211355)
+
+[node name="asteroids8" parent="Asteroids/AsteroidBelt8" unique_id=1109818016 instance=ExtResource("4_p57ef")]
+position = Vector2(-659, 116)
+rotation = 3.1040893
+scale = Vector2(0.38328242, 0.38328242)
+
+[node name="asteroids9" parent="Asteroids/AsteroidBelt8" unique_id=95430427 instance=ExtResource("4_p57ef")]
+position = Vector2(-799, 60.000004)
+rotation = 4.5563483
+scale = Vector2(0.47842744, 0.47842744)
+
+[node name="asteroids10" parent="Asteroids/AsteroidBelt8" unique_id=71661015 instance=ExtResource("4_p57ef")]
+position = Vector2(-846, 243.99994)
+rotation = 2.504111
+scale = Vector2(-0.35467792, -0.35467792)
+
+[node name="asteroids2" parent="Asteroids" unique_id=226907805 instance=ExtResource("4_p57ef")]
+position = Vector2(-150.00049, -6523)
+rotation = -0.6003663
+scale = Vector2(0.5473638, 0.5473638)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Asteroids/asteroids2" unique_id=1488363868]
+libraries/ = SubResource("AnimationLibrary_rysoc")
+autoplay = &"back_forth"
+
+[node name="asteroids" parent="Asteroids" unique_id=803433252 instance=ExtResource("4_p57ef")]
+position = Vector2(2689, -6698)
+rotation = 2.3527522
+scale = Vector2(0.65062547, 0.65062547)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Asteroids/asteroids" unique_id=716796014]
+libraries/ = SubResource("AnimationLibrary_trtic")
+autoplay = &"back_and_forth"
 
 [node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="." unique_id=750745610]
 stream = ExtResource("13_ir15t")
@@ -89,18 +657,8 @@ rotation = 0.3269711
 stream = ExtResource("13_kvuet")
 bus = &"Music"
 
-[node name="GoalPlanet" parent="." unique_id=1077245034 instance=ExtResource("3_lnu2h")]
-position = Vector2(24, -2338)
+[node name="GoalPlanet2" parent="." unique_id=1077245034 instance=ExtResource("3_lnu2h")]
+position = Vector2(-6592, -3605)
 
-[node name="Area2D" type="Area2D" parent="GoalPlanet" unique_id=1788369971]
-position = Vector2(8, 8)
-script = ExtResource("14_trtic")
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalPlanet/Area2D" unique_id=1820200627]
-position = Vector2(0, 8)
-shape = SubResource("CircleShape2D_ir15t")
-metadata/_edit_lock_ = true
-
-[connection signal="slice" from="Player/Slicer" to="Player" method="_on_slicer_slice"]
 [connection signal="body_entered" from="GoalPlanet/Area2D" to="GoalPlanet/Area2D" method="_on_body_entered"]
+[connection signal="slice" from="Player/Slicer" to="Player" method="_on_slicer_slice"]
