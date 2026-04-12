@@ -5,10 +5,10 @@
 [ext_resource type="AudioStream" uid="uid://buypuy0xno8fa" path="res://assets/sounds/explosion_home_made.mp3" id="3_nlyga"]
 
 [node name="PlayerPiece" type="RigidBody2D" unique_id=1420167873]
-collision_layer = 4
 script = ExtResource("1_3mk3v")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1945277580]
+polygon = PackedVector2Array(0, 0, 0, 0)
 
 [node name="Polygon2D" type="Polygon2D" parent="CollisionPolygon2D" unique_id=1104945234]
 texture = ExtResource("1_1coss")

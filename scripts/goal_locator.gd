@@ -4,7 +4,7 @@ extends Sprite2D
 
 # TODO: should it instead be the length to 
 #the furthest point in the character form origin instead?
-const RADIUS = 150
+const RADIUS = 200
 const MAX_SCALE = 0.15
 const MIN_SCALE = 0.02
 
@@ -24,5 +24,5 @@ func _process(delta: float) -> void:
 	position = Vector2(RADIUS * cos(rotation), RADIUS * sin(rotation))
 	
 	var cur_distance = global_position.distance_to(goal_planet.position)
-	var new_scale = lerp(MIN_SCALE, MAX_SCALE, clamp(1-cur_distance/MAX_DISTANCE, 0.0, 1.0))
+	var new_scale = lerp(MIN_SCALE, MAX_SCALE, clamp(cur_distance/MAX_DISTANCE, 0.0, 1.0))
 	scale = Vector2(new_scale,new_scale)

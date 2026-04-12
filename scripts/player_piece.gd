@@ -6,6 +6,7 @@ func spawn(points, v):
 	$CollisionPolygon2D/Polygon2D.uv = points
 	linear_velocity = v
 	$AudioStreamPlayer2D.play(1.3)
+	
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,5 +18,4 @@ func _process(delta: float) -> void:
 	pass
 
 func _process_physics(delta):
-
 	pass

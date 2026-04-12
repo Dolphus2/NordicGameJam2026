@@ -256,7 +256,7 @@ func get_gravity_contrib(rad_cens : Array, player_pos : Vector2, delta: float) -
 		planet_radius = pow(abs(planet_radius), 1)
 		var dir = (planet_pos - player_pos).normalized() * sgn(planet_radius)
 		velocity_contribution += G * (planet_radius * planet_radius * PI) / (pow(d, ALPHA) + 1e-3) * dir \
-			* (0 if d > MAX_G_DIST else 1) 
+			* (0 if d > MAX_G_DIST else 1) * (0 if d < planet_radius*0.8 else 1) 
 
 	return delta * velocity_contribution
 
@@ -320,6 +320,8 @@ func _physics_process(delta: float) -> void:
 
 	velocity += get_gravity_contrib(rad_cens, player_position, delta)
 	#print(velocity)
+	for piece in piece_container.get_children():
+		piece.linear_velocity += 10 * get_gravity_contrib(rad_cens, piece.global_position, delta)
 
 	var p1 = Vector2(0, 70)
 	var p2 = Vector2(70, 35)

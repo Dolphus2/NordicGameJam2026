@@ -8,12 +8,13 @@ func _on_body_entered(body: Node2D) -> void:
 	if flag:
 		return
 
-	flag = true
+	
 	if body.has_method("die"):
+		flag = true
 		body.die()
 
-	Engine.time_scale = 0.5
-	timer.start()
+		Engine.time_scale = 0.5
+		timer.start()
 	
 
 func _on_timer_timeout() -> void:
