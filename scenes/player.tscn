@@ -212,7 +212,6 @@ texture_scale = Vector2(5.1, 5.1)
 polygon = PackedVector2Array(100, 100, -100, 100, -100, -100, 100, -100)
 
 [node name="NothingLeft" type="AnimatedSprite2D" parent="." unique_id=848055710]
-scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_3v2ag")
 frame = 9
 frame_progress = 1.0

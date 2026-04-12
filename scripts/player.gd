@@ -6,9 +6,9 @@ var IS_DEAD = false
 
 const ROT_SPEED = 1
 #const ACCELERATION = 200
-const THROW_SPEED = 400
+const THROW_SPEED = 800
 # Keep between 0-1, 1 is real conservation of momentum, 0 ignores the previous momentum.
-const PREV_MOMENTUM_FACTOR = 1
+const PREV_MOMENTUM_FACTOR = 1.5
 
 const MIN_PLAYER_AREA = 5000
 var player_area = 1000000
@@ -17,9 +17,9 @@ var player_area = 1000000
 const PI = 3.141592
 
 # gravitational constant
-const G = 0.256
+const G = 0.000005
 # gravitational power, = 2 if real world
-const ALPHA = 1.6
+const ALPHA = 0.5
 const SPACE_OBJECT_GRAVITY_NAMES = ["black_hole", "white_hole", "planet", "asteroids", "GoalPlanet"]
 
 const seperation_explosion_scene = preload("res://scenes/seperation_particles.tscn")
@@ -140,13 +140,13 @@ func get_velocity_pieces(polys, prev_poly, V):
 	"""Takes an array of polygons. The first one is the player with the largest area."""
 	var M = get_area(prev_poly)
 	var v1 = (V * PREV_MOMENTUM_FACTOR) * M # temp
-	
+
 	var ms = []
 	var vs = []
 	
 	for i in range(polys.size()):
 		var v_norm = ( -1 * (get_polygon_centroid(polys[0]) - get_polygon_centroid(polys[i]))).normalized()
-		var v = v_norm * THROW_SPEED
+		var v = v_norm * THROW_SPEED + V
 		var m = get_area(polys[i])
 		vs.append(v)  # ignore the first one. It will be 0
 		ms.append(m)
@@ -210,11 +210,12 @@ func _nothing_left():
 
 func _on_nothing_left_animation_finished() -> void:
 	# You died. Reload
-	get_tree().reload_current_scene()
+	die()
+	# get_tree().reload_current_scene()
 
 #### GRAVITY STUFF START ####
 func get_radius_center(name) -> Array:
-	var space_object : Node2D = get_node("../%s" % [name])
+	var space_object : Node2D = get_node(name)
 	var space_object_cs : CollisionShape2D = space_object.get_node("Killzone/CollisionShape2D")
 	var space_object_cs_radius = space_object_cs.shape.radius
 	var space_object_center = space_object.global_position	
@@ -237,10 +238,12 @@ func get_gravity_contrib(rad_cens : Array, player_pos : Vector2, delta: float) -
 func get_gravity_node_names(node, names):
 	for gravity_object in SPACE_OBJECT_GRAVITY_NAMES:
 		if "name" in node && gravity_object in node.name:
-			names.append(node.get_name())
+			names.append(str(node.get_path()))
 			break
+
 	for child in node.get_children():
 		get_gravity_node_names(child, names)
+
 	return names
 
 #### GRAVITY STUFF END ####
@@ -282,7 +285,7 @@ func _physics_process(delta: float) -> void:
 	# print(node_names)
 	for name in node_names:
 		var rad_cen = get_radius_center(name)
-		print(name, " ", rad_cen)
+		#print(name, " ", rad_cen)
 		rad_cens.append(rad_cen)
 
 	############# INITIALIZE AREAS END #############
