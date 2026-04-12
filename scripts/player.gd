@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed = 400
 
+var IS_DEAD = false
 
 const ROT_SPEED = 1
 #const ACCELERATION = 200
@@ -228,9 +229,16 @@ func get_gravity_node_names(node, names):
 
 #### GRAVITY STUFF END ####
 
+func die():
+	IS_DEAD = true
+	velocity = Vector2(0,0)
+
 var debug_flag = true
 
 func _physics_process(delta: float) -> void:
+	if IS_DEAD:
+		velocity = Vector2(0,0)
+		return
 	
 	var rotation_direction := Input.get_axis("roll_left", "roll_right")
 	rotation += rotation_direction * ROT_SPEED * delta
