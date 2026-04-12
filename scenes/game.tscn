@@ -10,11 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://b6h4t5quexpt5" path="res://assets/arrow.png" id="8_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://b21d4powvh5m" path="res://scenes/pause_screen.tscn" id="8_gee14"]
 [ext_resource type="Script" uid="uid://c3twqfo5ifjtr" path="res://scripts/game_camera.gd" id="8_kvuet"]
-[ext_resource type="Script" path="res://scripts/goal_locator.gd" id="9_vtaks"]
+[ext_resource type="Script" uid="uid://cvydu0app6xv0" path="res://scripts/goal_locator.gd" id="9_vtaks"]
 [ext_resource type="PackedScene" uid="uid://darh2j7irx2ft" path="res://scenes/seperation_particles.tscn" id="11_trtic"]
 [ext_resource type="AudioStream" uid="uid://0q67o1bccbtc" path="res://assets/audio/space-ranger-moire-main-version-03-04-10814.mp3" id="13_ir15t"]
 [ext_resource type="AudioStream" uid="uid://cesjcoq41xy0v" path="res://assets/sounds/space_static.mp3" id="13_kvuet"]
-[ext_resource type="Script" path="res://scripts/goal_planet.gd" id="14_trtic"]
+[ext_resource type="Script" uid="uid://d3nucsik4uohl" path="res://scripts/goal_planet.gd" id="14_trtic"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ir15t"]
 radius = 320.39975
@@ -225,11 +225,11 @@ scale = Vector2(0.3797781, 0.37627196)
 [node name="planet5" parent="Planets" unique_id=1185498518 instance=ExtResource("3_lnu2h")]
 modulate = Color(0.40259457, 0.67931956, 0.40748003, 1)
 position = Vector2(796, 478)
-scale = Vector2(0.55786854, 0.5527183)
+scale = Vector2(0.4, 0.4)
 
 [node name="planet6" parent="Planets" unique_id=1952727254 instance=ExtResource("3_lnu2h")]
 modulate = Color(0.33725876, 0.33979794, 0.33917046, 1)
-position = Vector2(355, 70)
+position = Vector2(716, 164)
 scale = Vector2(0.120576605, 0.119463444)
 
 [node name="WhiteHoles" type="Node2D" parent="." unique_id=396869530]
@@ -243,9 +243,8 @@ position = Vector2(-1260.9999, -4469)
 scale = Vector2(0.76067394, 0.76067394)
 
 [node name="white_hole3" parent="WhiteHoles" unique_id=1110969592 instance=ExtResource("2_dinhu")]
-position = Vector2(-1279, 1264)
+position = Vector2(-1395, 1234.0001)
 rotation = -0.00080615655
-scale = Vector2(1.8241789, 1.8241789)
 
 [node name="BlackHoles" type="Node2D" parent="." unique_id=1452565596]
 
@@ -265,13 +264,16 @@ scale = Vector2(0.5473638, 0.5473638)
 position = Vector2(949, 1445)
 scale = Vector2(0.567616, 0.567616)
 
+[node name="BlackHole" parent="BlackHoles" unique_id=543335508 instance=ExtResource("5_u5sy4")]
+position = Vector2(1231, -6081)
+
 [node name="Asteroids" type="Node2D" parent="." unique_id=1684915007]
 
 [node name="AsteroidBelt" type="Node2D" parent="Asteroids" unique_id=534318430]
 position = Vector2(-212, -203)
 scale = Vector2(0.5473638, 0.5473638)
 
-[node name="asteroids3" parent="Asteroids/AsteroidBelt" unique_id=543335508 instance=ExtResource("4_p57ef")]
+[node name="asteroids3" parent="Asteroids/AsteroidBelt" unique_id=829694277 instance=ExtResource("4_p57ef")]
 position = Vector2(-381.00003, -368)
 rotation = 2.3527522
 scale = Vector2(0.6211355, 0.6211355)
@@ -535,7 +537,7 @@ rotation = 2.504111
 scale = Vector2(-0.35467792, -0.35467792)
 
 [node name="asteroids3" parent="Asteroids" unique_id=512232919 instance=ExtResource("4_p57ef")]
-position = Vector2(746.00006, -3596)
+position = Vector2(1680.0001, -3904.0002)
 rotation = -0.22096992
 scale = Vector2(0.21117803, 0.21117803)
 
