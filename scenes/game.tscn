@@ -18,6 +18,9 @@
 [ext_resource type="Script" uid="uid://d3nucsik4uohl" path="res://scripts/goal_planet.gd" id="14_trtic"]
 [ext_resource type="PackedScene" uid="uid://beu5j00l33p4t" path="res://scenes/killzone.tscn" id="16_ca42v"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ir15t"]
+radius = 320.39975
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ssvqc"]
 texture = ExtResource("1_kvuet")
 texture_region_size = Vector2i(512, 512)
@@ -9250,9 +9253,6 @@ texture_region_size = Vector2i(256, 256)
 [sub_resource type="TileSet" id="TileSet_5newe"]
 tile_size = Vector2i(256, 256)
 sources/1 = SubResource("TileSetAtlasSource_1kice")
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ir15t"]
-radius = 320.39975
 
 [sub_resource type="Animation" id="Animation_ir15t"]
 length = 0.001
