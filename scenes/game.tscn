@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ckwrmvahd8e7l"]
+[gd_scene format=4 uid="uid://ckwrmvahd8e7l"]
 
 [ext_resource type="Texture2D" uid="uid://krtjoi21nja6" path="res://assets/background_tiles.png" id="1_kvuet"]
 [ext_resource type="PackedScene" uid="uid://dovur5twno2b1" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://b21d4powvh5m" path="res://scenes/pause_screen.tscn" id="8_gee14"]
 [ext_resource type="Script" uid="uid://c3twqfo5ifjtr" path="res://scripts/game_camera.gd" id="8_kvuet"]
 [ext_resource type="Script" path="res://scripts/goal_locator.gd" id="9_vtaks"]
+[ext_resource type="Script" uid="uid://cvydu0app6xv0" path="res://scripts/goal_locator.gd" id="9_vtaks"]
 [ext_resource type="PackedScene" uid="uid://darh2j7irx2ft" path="res://scenes/seperation_particles.tscn" id="11_trtic"]
+[ext_resource type="Script" uid="uid://d3nucsik4uohl" path="res://scripts/goal_planet.gd" id="14_trtic"]
 [ext_resource type="AudioStream" uid="uid://cesjcoq41xy0v" path="res://assets/sounds/space_static.mp3" id="13_kvuet"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trtic"]
@@ -31,18 +33,18 @@ texture_region_size = Vector2i(512, 512)
 tile_size = Vector2i(512, 512)
 sources/0 = SubResource("TileSetAtlasSource_trtic")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ir15t"]
+radius = 388.16104
+
 [node name="Game" type="Node2D" unique_id=1375401336]
 
 [node name="Obstacles" type="Node" parent="." unique_id=1771933786]
 
-[node name="GoalPlanet" parent="." unique_id=1171461319 instance=ExtResource("3_lnu2h")]
-position = Vector2(13, -2473)
-
-[node name="TileMap" type="TileMap" parent="." unique_id=324097902]
+[node name="Background" type="TileMapLayer" parent="." unique_id=1114409673]
+z_index = -1
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAAAP//AAAAAAEAAAD//wEAAAAAAAEAAAD9/wAAAAAAAAEAAAD8//7/AAACAAIAAAD8/wIAAAAAAAEAAAABAAIAAAAAAAEAAAACAP7/AAAAAAEAAAD+/wAAAAABAAEAAAABAP7/AAABAAEAAAAAAAIAAAABAAEAAAD///7/AAACAAEAAAD+////AAACAAEAAAD9/wEAAAACAAEAAAD8/wEAAAACAAEAAAAAAAAAAAABAAAAAGABAP//AAACAAEAAAACAAEAAAACAAEAAAD+/wEAAAABAAIAAAAAAAEAAAABAAIAAAD//wAAAAABAAIAAAD/////AAAAAAIAAAD+//7/AAABAAIAAAD8////AAABAAIAAAAAAP7/AAABAAIAAAACAP//AAAAAAEAAAABAAAAAAAAAAEAAAABAAEAAAABAAAAAAD9////AAAAAAEAAAD9//7/AAAAAAEAAAD8/wAAAAAAAAEAAAD9/wIAAAABAAAAAGD+/wIAAAAAAAEAAAD//wIAAAAAAAEAAAACAAAAAAAAAAEAAAACAAIAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_p57ef")
-format = 2
-layer_0/name = "Background"
-layer_0/tile_data = PackedInt32Array(-65536, 0, 1, 131071, 0, 1, 65533, 0, 1, -65540, 131072, 2, 196604, 0, 1, 131073, 0, 1, -131070, 0, 1, 65534, 65536, 1, -131071, 65536, 1, 131072, 65536, 1, -65537, 131072, 1, -2, 131072, 1, 131069, 131072, 1, 131068, 131072, 1, 0, 65536, 1610612736, -65535, 131072, 1, 65538, 131072, 1, 131070, 65536, 2, 65536, 65536, 2, 65535, 65536, 2, -1, 0, 2, -65538, 65536, 2, -4, 65536, 2, -131072, 65536, 2, -65534, 0, 1, 1, 0, 1, 65537, 65536, 0, -3, 0, 1, -65539, 0, 1, 65532, 0, 1, 196605, 65536, 1610612736, 196606, 0, 1, 196607, 0, 1, 2, 0, 1, 131074, 0, 1)
 
 [node name="Player" parent="." unique_id=1597567515 instance=ExtResource("1_uwrxv")]
 position = Vector2(2, -9)
@@ -84,5 +86,20 @@ position = Vector2(1030, -991)
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=706130883]
 stream = ExtResource("13_kvuet")
 bus = &"Music"
+rotation = 0.3269711
+
+[node name="GoalPlanet" parent="." unique_id=1077245034 instance=ExtResource("3_lnu2h")]
+position = Vector2(24, -2338)
+
+[node name="Area2D" type="Area2D" parent="GoalPlanet" unique_id=1788369971]
+position = Vector2(8, 8)
+script = ExtResource("14_trtic")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalPlanet/Area2D" unique_id=1820200627]
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_ir15t")
+metadata/_edit_lock_ = true
 
 [connection signal="slice" from="Player/Slicer" to="Player" method="_on_slicer_slice"]
+[connection signal="body_entered" from="GoalPlanet/Area2D" to="GoalPlanet/Area2D" method="_on_body_entered"]
