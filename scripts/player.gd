@@ -9,8 +9,8 @@ const THROW_SPEED = 400
 # Keep between 0-1, 1 is real conservation of momentum, 0 ignores the previous momentum.
 const PREV_MOMENTUM_FACTOR = 1
 
-const MIN_PLAYER_AREA = 20
-var player_area = 1000
+const MIN_PLAYER_AREA = 5000
+var player_area = 1000000
 
 # for computing areas
 const PI = 3.141592
@@ -198,9 +198,17 @@ func cut_player(slice_start, slice_end) -> Array[PackedVector2Array]:
 func _on_slicer_slice(slice_start, slice_end) -> void:
 	# Cut the player into pieces and apply directional velocity for each piece.
 	var polys = cut_player(slice_start, slice_end)
+	print(player_area)
 	if player_area < MIN_PLAYER_AREA:
-		pass
+		_nothing_left()
+		
+func _nothing_left():
+	$NothingLeft.offset = get_polygon_centroid($CollisionPolygon2D/Polygon2D.polygon)
+	$NothingLeft.play()
 
+func _on_nothing_left_animation_finished() -> void:
+	# You died. Reload
+	get_tree().reload_current_scene()
 
 #### GRAVITY STUFF START ####
 func get_radius_center(name) -> Array:
@@ -250,7 +258,7 @@ func _physics_process(delta: float) -> void:
 	############# INITIALIZE AREAS START #############
 	var rad_cens = []
 	var node_names = get_gravity_node_names(get_tree().root, [])
-	print(node_names)
+	# print(node_names)
 	for name in node_names:
 		rad_cens.append(get_radius_center(name))
 
@@ -275,4 +283,4 @@ func _physics_process(delta: float) -> void:
 
 		debug_flag = false
 
-	move_and_slide()
+	move_and_slide()		# Update area and check for death 

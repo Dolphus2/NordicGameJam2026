@@ -2,6 +2,77 @@
 
 [ext_resource type="Script" uid="uid://c3wgieqcegilv" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://ca8tvhwbrffwu" path="res://assets/spaceship.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://b5yb5plujgoal" path="res://assets/disappear_tile.png" id="3_qhqgy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(0, 0, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(460, 0, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(920, 0, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(1380, 0, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(0, 690, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur7pv"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(460, 690, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(920, 690, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(1380, 690, 460, 690)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3v2ag"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqkch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlg0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjrip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smehm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur7pv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4r1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2wvv")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
 
 [node name="Player" type="CharacterBody2D" unique_id=1597567515]
 script = ExtResource("1_3vyb7")
@@ -14,3 +85,11 @@ texture = ExtResource("2_g2els")
 texture_offset = Vector2(66, 66)
 texture_scale = Vector2(9.3, 9.3)
 polygon = PackedVector2Array(66, 66, -66, 66, -66, -66, 66, -66)
+
+[node name="NothingLeft" type="AnimatedSprite2D" parent="." unique_id=848055710]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_3v2ag")
+frame = 9
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="NothingLeft" to="." method="_on_nothing_left_animation_finished"]
