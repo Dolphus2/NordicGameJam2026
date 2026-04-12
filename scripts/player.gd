@@ -144,7 +144,8 @@ func get_velocity_pieces(polys, prev_poly, V):
 	var vs = []
 	
 	for i in range(polys.size()):
-		var v = - (get_polygon_centroid(polys[0]) - get_polygon_centroid(polys[i])).normalized() * THROW_SPEED
+		var v_norm = ( -1 * (get_polygon_centroid(polys[0]) - get_polygon_centroid(polys[i]))).normalized()
+		var v = v_norm * THROW_SPEED
 		var m = get_area(polys[i])
 		vs.append(v)  # ignore the first one. It will be 0
 		ms.append(m)
