@@ -9,6 +9,10 @@ var dragging: bool = false
 
 signal slice
 
+func _ready():
+	width = 3.0
+	default_color = Color.ORANGE
+
 func _slice() -> void:
 	# Optional slice logic
 	slice.emit(slice_start, slice_end)

@@ -78,9 +78,11 @@ animations = [{
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1209824633]
-polygon = PackedVector2Array(66, 66, -66, 66, -66, -66, 66, -66)
+polygon = PackedVector2Array(62, 62, -71, 62, -71, -72, 63, -73)
 
 [node name="Polygon2D" type="Polygon2D" parent="CollisionPolygon2D" unique_id=1693170060]
+position = Vector2(-0.49433935, -1.4156251)
+scale = Vector2(1.0151515, 1.0225252)
 texture = ExtResource("2_g2els")
 texture_offset = Vector2(66, 66)
 texture_scale = Vector2(9.3, 9.3)

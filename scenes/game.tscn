@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b21d4powvh5m" path="res://scenes/pause_screen.tscn" id="8_gee14"]
 [ext_resource type="Script" uid="uid://c3twqfo5ifjtr" path="res://scripts/game_camera.gd" id="8_kvuet"]
 [ext_resource type="Script" path="res://scripts/goal_locator.gd" id="9_vtaks"]
+[ext_resource type="Script" uid="uid://cvydu0app6xv0" path="res://scripts/goal_locator.gd" id="9_vtaks"]
 [ext_resource type="PackedScene" uid="uid://darh2j7irx2ft" path="res://scenes/seperation_particles.tscn" id="11_trtic"]
 [ext_resource type="AudioStream" uid="uid://0q67o1bccbtc" path="res://assets/audio/space-ranger-moire-main-version-03-04-10814.mp3" id="13_ir15t"]
 [ext_resource type="AudioStream" uid="uid://cesjcoq41xy0v" path="res://assets/sounds/space_static.mp3" id="13_kvuet"]
