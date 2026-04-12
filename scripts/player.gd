@@ -267,6 +267,17 @@ func get_gravity_node_names(node, names):
 func die():
 	IS_DEAD = true
 	velocity = Vector2(0,0)
+	
+	explosion()
+	#get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
+	
+func explosion():
+	$Explosion.offset = get_polygon_centroid($CollisionPolygon2D/Polygon2D.polygon)
+	$Explosion.play()
+	$Explosion/AudioStreamPlayer2D.play()
+	$youdied.play()
+
+func _on_youdied_animation_finished() -> void:
 	get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
 
 var debug_flag = true
