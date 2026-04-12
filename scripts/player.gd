@@ -248,6 +248,7 @@ func get_gravity_node_names(node, names):
 func die():
 	IS_DEAD = true
 	velocity = Vector2(0,0)
+	get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
 
 var debug_flag = true
 
