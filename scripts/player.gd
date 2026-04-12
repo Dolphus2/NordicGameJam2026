@@ -8,7 +8,7 @@ const ROT_SPEED = 1
 #const ACCELERATION = 200
 const THROW_SPEED = 800
 # Keep between 0-1, 1 is real conservation of momentum, 0 ignores the previous momentum.
-const PREV_MOMENTUM_FACTOR = 1
+const PREV_MOMENTUM_FACTOR = 1.5
 
 const MIN_PLAYER_AREA = 5000
 var player_area = 1000000
@@ -17,9 +17,9 @@ var player_area = 1000000
 const PI = 3.141592
 
 # gravitational constant
-const G = 0.0000005
+const G = 0.000005
 # gravitational power, = 2 if real world
-const ALPHA = 1.6
+const ALPHA = 0.5
 const SPACE_OBJECT_GRAVITY_NAMES = ["black_hole", "white_hole", "planet", "asteroids", "GoalPlanet"]
 
 const seperation_explosion_scene = preload("res://scenes/seperation_particles.tscn")
@@ -146,7 +146,7 @@ func get_velocity_pieces(polys, prev_poly, V):
 	
 	for i in range(polys.size()):
 		var v_norm = ( -1 * (get_polygon_centroid(polys[0]) - get_polygon_centroid(polys[i]))).normalized()
-		var v = v_norm * THROW_SPEED
+		var v = v_norm * THROW_SPEED + V
 		var m = get_area(polys[i])
 		vs.append(v)  # ignore the first one. It will be 0
 		ms.append(m)
