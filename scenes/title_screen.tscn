@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b50geqrwc5swg" path="res://assets/quit.png" id="3_mgrm8"]
 [ext_resource type="Texture2D" uid="uid://dxfv164pqpbnw" path="res://assets/quit_hovered.png" id="5_e54dn"]
 [ext_resource type="Texture2D" uid="uid://krtjoi21nja6" path="res://assets/background_tiles.png" id="6_e54dn"]
+[ext_resource type="Texture2D" uid="uid://cbt3qqmpa6gje" path="res://assets/TitleTB.png" id="7_3yumr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3yumr"]
 texture = ExtResource("6_e54dn")
@@ -33,29 +34,31 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fgkus")
 
-[node name="StartButton" type="TextureButton" parent="." unique_id=2029525742]
-z_index = 1
+[node name="TileMap" type="TileMap" parent="." unique_id=270586248]
+tile_set = SubResource("TileSet_cs5ya")
+format = 2
+layer_0/name = "Background"
+layer_0/tile_data = PackedInt32Array(65536, 6, 1, -65534, 6, 1, 1, 65542, 1, 0, 6, 1, 2, 131078, 1, -65536, 131078, 1, 65535, 131078, 1, 131071, 65542, 0, 65537, 131078, 1, -1, 131078, 2, -65535, 65542, 2, 65538, 65542, 2, 65539, 65542, 2, -65533, 65542, 2, 3, 6, 2, 131073, 131078, 0, 196607, 131078, 0, 131074, 6, 1, 131072, 6, 1, 131075, 131078, 1)
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=725567615]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.3359375
-anchor_top = 0.3287037
-anchor_right = 0.6615234
-anchor_bottom = 0.66049385
-texture_normal = ExtResource("2_s4lrb")
-texture_pressed = ExtResource("3_dc4i4")
-texture_hover = ExtResource("3_dc4i4")
-ignore_texture_size = true
-stretch_mode = 0
+anchor_left = 0.19618055
+anchor_top = -0.16975309
+anchor_right = 0.8177083
+anchor_bottom = 0.9351852
+texture = ExtResource("7_3yumr")
+expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="QuitButton" type="TextureButton" parent="." unique_id=810390034]
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.3382275
-anchor_top = 0.5802469
-anchor_right = 0.6650863
-anchor_bottom = 0.89969134
+anchor_left = 0.5885417
+anchor_top = 0.5941358
+anchor_right = 0.9154005
+anchor_bottom = 0.91358024
 texture_normal = ExtResource("3_mgrm8")
 texture_pressed = ExtResource("5_e54dn")
 texture_hover = ExtResource("5_e54dn")
@@ -63,11 +66,20 @@ ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="TileMap" type="TileMap" parent="." unique_id=270586248]
-tile_set = SubResource("TileSet_cs5ya")
-format = 2
-layer_0/name = "Background"
-layer_0/tile_data = PackedInt32Array(65536, 6, 1, -65534, 6, 1, 1, 65542, 1, 0, 6, 1, 2, 131078, 1, -65536, 131078, 1, 65535, 131078, 1, 131071, 65542, 0, 65537, 131078, 1, -1, 131078, 2, -65535, 65542, 2, 65538, 65542, 2, 65539, 65542, 2, -65533, 65542, 2, 3, 6, 2, 131073, 131078, 0, 196607, 131078, 0, 131074, 6, 1, 131072, 6, 1, 131075, 131078, 1)
+[node name="StartButton" type="TextureButton" parent="." unique_id=2029525742]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.10069445
+anchor_top = 0.5925926
+anchor_right = 0.42628035
+anchor_bottom = 0.9243827
+texture_normal = ExtResource("2_s4lrb")
+texture_pressed = ExtResource("3_dc4i4")
+texture_hover = ExtResource("3_dc4i4")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
