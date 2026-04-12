@@ -34,7 +34,7 @@ tile_size = Vector2i(512, 512)
 sources/0 = SubResource("TileSetAtlasSource_trtic")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ir15t"]
-radius = 388.16104
+radius = 320.39975
 
 [node name="Game" type="Node2D" unique_id=1375401336]
 
