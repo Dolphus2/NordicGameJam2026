@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://c3wgieqcegilv" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://d3bo3rjvft7j4" path="res://assets/spaceship.png" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://b5yb5plujgoal" path="res://assets/disappear_tile.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://ukibkn3v3062" path="res://assets/explosion_tile.png" id="4_dqkch"]
+[ext_resource type="AudioStream" uid="uid://pam377affsmd" path="res://assets/sounds/freesound_community-explosion-42132.mp3" id="5_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://703wjkjyv4c2" path="res://assets/you_died.png" id="6_tuyoq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
 atlas = ExtResource("3_qhqgy")
@@ -74,6 +77,127 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(0, 0, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(460, 0, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(920, 0, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(1380, 0, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(0, 690, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(460, 690, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(920, 690, 460, 690)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(1380, 690, 460, 690)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_60mlk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v2ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jej6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ej7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfm1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fulsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r5pv")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 18.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
+atlas = ExtResource("6_tuyoq")
+region = Rect2(0, 0, 1840, 690)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i4ail"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Player" type="CharacterBody2D" unique_id=1597567515]
 script = ExtResource("1_3vyb7")
 
@@ -92,4 +216,20 @@ sprite_frames = SubResource("SpriteFrames_3v2ag")
 frame = 9
 frame_progress = 1.0
 
+[node name="Explosion" type="AnimatedSprite2D" parent="." unique_id=1749789240]
+scale = Vector2(1.7869565, 1.7869565)
+sprite_frames = SubResource("SpriteFrames_60mlk")
+frame = 9
+frame_progress = 1.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Explosion" unique_id=236730939]
+stream = ExtResource("5_qlg0r")
+
+[node name="youdied" type="AnimatedSprite2D" parent="Explosion" unique_id=2144663178]
+position = Vector2(44.76886, -118.63747)
+scale = Vector2(0.48175183, 0.48175183)
+sprite_frames = SubResource("SpriteFrames_i4ail")
+
 [connection signal="animation_finished" from="NothingLeft" to="." method="_on_nothing_left_animation_finished"]
+[connection signal="animation_finished" from="Explosion" to="." method="_on_explosion_animation_finished"]
+[connection signal="animation_finished" from="Explosion/youdied" to="." method="_on_youdied_animation_finished"]
