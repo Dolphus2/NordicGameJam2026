@@ -9,6 +9,7 @@ const ROT_SPEED = 1
 const THROW_SPEED = 800
 # Keep between 0-1, 1 is real conservation of momentum, 0 ignores the previous momentum.
 const PREV_MOMENTUM_FACTOR = 1.5
+const MAX_G_DIST = 800
 
 const MIN_PLAYER_AREA = 5000
 var player_area = 1000000
@@ -17,7 +18,7 @@ var player_area = 1000000
 const PI = 3.141592
 
 # gravitational constant
-const G = 0.3
+const G = 8
 # gravitational power, = 2 if real world
 const ALPHA = 1.5
 const SPACE_OBJECT_GRAVITY_NAMES = ["black_hole", "white_hole", "planet", "asteroids", "GoalPlanet"]
@@ -232,7 +233,7 @@ func get_radius_center(name) -> Array:
 
 	var shape: CircleShape2D = cs.shape
 	var scale_factor = max(abs(cs.global_scale.x), abs(cs.global_scale.y))
-	var world_radius = shape.radius * scale_factor
+	var world_radius = shape.radius * scale_factor * (-1 if "white_hole" in name else 1)
 	var world_center = cs.global_position
 
 	return [world_radius, world_center]
@@ -241,13 +242,16 @@ func get_gravity_contrib(rad_cens : Array, player_pos : Vector2, delta: float) -
 	var velocity_contribution : Vector2 = Vector2(0, 0)
 
 	for rad_cen in rad_cens:
-		var planet_radius = rad_cen[0]
+		var planet_radius = rad_cen[0] # negative if inverse gravity
 		var planet_pos = rad_cen[1]
+		# var name = rad_cen[2]
 		# print("pos: ", pos)
 		var diff = player_pos - planet_pos
-		var d = max(1e-1, pow(diff.x * diff.x + diff.y * diff.y, 0.5) - planet_radius)
-		var dir = (planet_pos - player_pos).normalized()
-		velocity_contribution += G * (planet_radius * planet_radius * PI) / (pow(d, ALPHA) + 1e-3) * dir
+		var d = max(1e-1, pow(diff.x * diff.x + diff.y * diff.y, 0.5) - abs(planet_radius))
+		planet_radius = pow(abs(planet_radius), 1)
+		var dir = (planet_pos - player_pos).normalized() * sgn(planet_radius)
+		velocity_contribution += G * (planet_radius * planet_radius * PI) / (pow(d, ALPHA) + 1e-3) * dir \
+			* (0 if d > MAX_G_DIST else 1)
 
 	return delta * velocity_contribution
 
@@ -301,6 +305,7 @@ func _physics_process(delta: float) -> void:
 	# print(node_names)
 	for name in node_names:
 		var rad_cen = get_radius_center(name)
+			
 		#print(name, " ", rad_cen)
 		rad_cens.append(rad_cen)
 
