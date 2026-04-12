@@ -9,6 +9,9 @@ const THROW_SPEED = 400
 # Keep between 0-1, 1 is real conservation of momentum, 0 ignores the previous momentum.
 const PREV_MOMENTUM_FACTOR = 1
 
+const MIN_PLAYER_AREA = 20
+var player_area = 1000
+
 # for computing areas
 const PI = 3.141592
 
@@ -28,6 +31,7 @@ func _ready() -> void:
 	# Make the seperation explosion container
 	add_child(sep_exp_container)
 	add_child(piece_container)
+	player_area = get_area($CollisionPolygon2D.polygon)
 
 func get_determinant(p1, p2) -> float:
 	return p1.x * p2.y - p2.x * p1.y
@@ -179,6 +183,7 @@ func cut_player(slice_start, slice_end) -> Array[PackedVector2Array]:
 		# Update texture
 		$CollisionPolygon2D/Polygon2D.polygon = polygons[0]
 		$CollisionPolygon2D/Polygon2D.set_uv(polygons[0])
+		player_area = get_area(polygons[0])
 
 		# Screen shake
 		$Camera2D.start_shake()
@@ -193,6 +198,8 @@ func cut_player(slice_start, slice_end) -> Array[PackedVector2Array]:
 func _on_slicer_slice(slice_start, slice_end) -> void:
 	# Cut the player into pieces and apply directional velocity for each piece.
 	var polys = cut_player(slice_start, slice_end)
+	if player_area < MIN_PLAYER_AREA:
+		pass
 
 
 #### GRAVITY STUFF START ####
