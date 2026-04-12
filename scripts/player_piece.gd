@@ -19,4 +19,3 @@ func _process(delta: float) -> void:
 func _process_physics(delta):
 
 	pass
-

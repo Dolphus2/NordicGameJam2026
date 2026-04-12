@@ -224,12 +224,14 @@ frame_progress = 1.0
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Explosion" unique_id=236730939]
 stream = ExtResource("5_qlg0r")
+volume_db = -10.0
+bus = &"SFX"
 
-[node name="youdied" type="AnimatedSprite2D" parent="Explosion" unique_id=2144663178]
-position = Vector2(44.76886, -118.63747)
-scale = Vector2(0.48175183, 0.48175183)
+[node name="youdied" type="AnimatedSprite2D" parent="." unique_id=2144663178]
+position = Vector2(80.00001, -212)
+scale = Vector2(0.8608696, 0.8608696)
 sprite_frames = SubResource("SpriteFrames_i4ail")
 
 [connection signal="animation_finished" from="NothingLeft" to="." method="_on_nothing_left_animation_finished"]
 [connection signal="animation_finished" from="Explosion" to="." method="_on_explosion_animation_finished"]
-[connection signal="animation_finished" from="Explosion/youdied" to="." method="_on_youdied_animation_finished"]
+[connection signal="animation_finished" from="youdied" to="." method="_on_youdied_animation_finished"]

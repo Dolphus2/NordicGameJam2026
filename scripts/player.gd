@@ -259,7 +259,7 @@ func explosion():
 	$Explosion.offset = get_polygon_centroid($CollisionPolygon2D/Polygon2D.polygon)
 	$Explosion.play()
 	$Explosion/AudioStreamPlayer2D.play()
-	$Explosion/youdied.play()
+	$youdied.play()
 
 func _on_youdied_animation_finished() -> void:
 	get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
