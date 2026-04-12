@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var speed = 400
+@onready var timer: Timer = $NothingLeft/Timer
 
 var IS_DEAD = false
 
@@ -11,7 +12,7 @@ const THROW_SPEED = 800
 const PREV_MOMENTUM_FACTOR = 1.5
 const MAX_G_DIST = 800
 
-const MIN_PLAYER_AREA = 5000
+const MIN_PLAYER_AREA = 1000
 var player_area = 1000000
 
 # for computing areas
@@ -208,10 +209,14 @@ func _on_slicer_slice(slice_start, slice_end) -> void:
 func _nothing_left():
 	$NothingLeft.offset = get_polygon_centroid($CollisionPolygon2D/Polygon2D.polygon)
 	$NothingLeft.play()
+	timer.start()
+	
+func _on_timer_timeout() -> void:
+	$CollisionPolygon2D/Polygon2D.visible = false
 
 func _on_nothing_left_animation_finished() -> void:
 	# You died. Reload
-	die()
+	get_tree().change_scene_to_file("res://scenes/nothing_left.tscn")
 	# get_tree().reload_current_scene()
 
 #### GRAVITY STUFF START ####
@@ -251,7 +256,7 @@ func get_gravity_contrib(rad_cens : Array, player_pos : Vector2, delta: float) -
 		planet_radius = pow(abs(planet_radius), 1)
 		var dir = (planet_pos - player_pos).normalized() * sgn(planet_radius)
 		velocity_contribution += G * (planet_radius * planet_radius * PI) / (pow(d, ALPHA) + 1e-3) * dir \
-			* (0 if d > MAX_G_DIST else 1)
+			* (0 if d > MAX_G_DIST else 1) 
 
 	return delta * velocity_contribution
 

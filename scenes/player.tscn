@@ -213,8 +213,10 @@ polygon = PackedVector2Array(100, 100, -100, 100, -100, -100, 100, -100)
 
 [node name="NothingLeft" type="AnimatedSprite2D" parent="." unique_id=848055710]
 sprite_frames = SubResource("SpriteFrames_3v2ag")
-frame = 9
-frame_progress = 1.0
+
+[node name="Timer" type="Timer" parent="NothingLeft" unique_id=798461257]
+wait_time = 0.5
+one_shot = true
 
 [node name="Explosion" type="AnimatedSprite2D" parent="." unique_id=1749789240]
 scale = Vector2(1.7869565, 1.7869565)
@@ -233,5 +235,6 @@ scale = Vector2(0.8608696, 0.8608696)
 sprite_frames = SubResource("SpriteFrames_i4ail")
 
 [connection signal="animation_finished" from="NothingLeft" to="." method="_on_nothing_left_animation_finished"]
+[connection signal="timeout" from="NothingLeft/Timer" to="." method="_on_timer_timeout"]
 [connection signal="animation_finished" from="Explosion" to="." method="_on_explosion_animation_finished"]
 [connection signal="animation_finished" from="youdied" to="." method="_on_youdied_animation_finished"]
