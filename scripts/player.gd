@@ -13,9 +13,10 @@ const PREV_MOMENTUM_FACTOR = 1
 const PI = 3.141592
 
 # gravitational constant
-const G = 0.0128
+const G = 40.96
 # gravitational power, = 2 if real world
-const alpha = 1.6
+const ALPHA = 1.6
+const SPACE_OBJECT_GRAVITY_NAMES = ["black_hole", "white_hole", "planet", "asteroids", "GoalPlanet"]
 
 const seperation_explosion_scene = preload("res://scenes/seperation_particles.tscn")
 var sep_exp_container := Node2D.new()
@@ -213,9 +214,17 @@ func get_gravity_contrib(rad_cens : Array, player_pos : Vector2, delta: float) -
 		var d = pow(diff.x * diff.x + diff.y * diff.y, 0.5) - planet_radius
 		var vec = planet_pos - player_pos
 		var normed_vec = vec / (vec.x * vec.x + vec.y * vec.y + 1e-3)
-		velocity_contribution += G * (planet_radius * planet_radius * PI) / (pow(d, alpha) + 1e-3) * normed_vec
+		velocity_contribution += G * (planet_radius * planet_radius * PI) / (pow(d, ALPHA) + 1e-3) * normed_vec
 
 	return delta * velocity_contribution
+
+func get_gravity_node_names(node, names):
+	for gravity_object in SPACE_OBJECT_GRAVITY_NAMES:
+		if "name" in node && gravity_object in node.name:
+			names.append(node.get_name())
+	for child in node.get_children():
+		get_gravity_node_names(child, names)
+	return names
 
 #### GRAVITY STUFF END ####
 
@@ -232,14 +241,12 @@ func _physics_process(delta: float) -> void:
 	## print(position)
 
 	############# INITIALIZE AREAS START #############
-	var black_hole_1_radius_center = get_radius_center("black_hole") # name should match what we called it in the game scene
-	var black_hole_2_radius_center = get_radius_center("black_hole2")
-	var white_hole_1_radius_center = get_radius_center("white_hole")
-	var planet_1_radius_center = get_radius_center("planet")
-	var asteroid_1_radius_center = get_radius_center("asteroids")
-	var goal_planet_1_radius_center = get_radius_center("GoalPlanet")
+	var rad_cens = []
+	var node_names = get_gravity_node_names(get_tree().root, [])
+	print(node_names)
+	for name in node_names:
+		rad_cens.append(get_radius_center(name))
 
-	var rad_cens = [black_hole_1_radius_center, planet_1_radius_center, asteroid_1_radius_center, white_hole_1_radius_center]
 	############# INITIALIZE AREAS END #############
 
 	var player_position : Vector2 = get_node(".").get_position()
@@ -257,8 +264,6 @@ func _physics_process(delta: float) -> void:
 		print(ans)
 		print(get_area(points))
 		print("player position: ", player_position)
-		print(black_hole_1_radius_center)
-		print(planet_1_radius_center)
 
 
 		debug_flag = false
