@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://ckwrmvahd8e7l"]
+[gd_scene format=4 uid="uid://ckwrmvahd8e7l"]
 
 [ext_resource type="Texture2D" uid="uid://krtjoi21nja6" path="res://assets/background_tiles.png" id="1_kvuet"]
 [ext_resource type="PackedScene" uid="uid://dovur5twno2b1" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -39,11 +39,11 @@ radius = 388.16104
 
 [node name="Obstacles" type="Node" parent="." unique_id=1771933786]
 
-[node name="TileMap" type="TileMap" parent="." unique_id=324097902]
+[node name="Background" type="TileMapLayer" parent="." unique_id=1114409673]
+z_index = -1
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAAAP//AAAAAAEAAAD//wEAAAAAAAEAAAD9/wAAAAAAAAEAAAD8//7/AAACAAIAAAD8/wIAAAAAAAEAAAABAAIAAAAAAAEAAAACAP7/AAAAAAEAAAD+/wAAAAABAAEAAAABAP7/AAABAAEAAAAAAAIAAAABAAEAAAD///7/AAACAAEAAAD+////AAACAAEAAAD9/wEAAAACAAEAAAD8/wEAAAACAAEAAAAAAAAAAAABAAAAAGABAP//AAACAAEAAAACAAEAAAACAAEAAAD+/wEAAAABAAIAAAAAAAEAAAABAAIAAAD//wAAAAABAAIAAAD/////AAAAAAIAAAD+//7/AAABAAIAAAD8////AAABAAIAAAAAAP7/AAABAAIAAAACAP//AAAAAAEAAAABAAAAAAAAAAEAAAABAAEAAAABAAAAAAD9////AAAAAAEAAAD9//7/AAAAAAEAAAD8/wAAAAAAAAEAAAD9/wIAAAABAAAAAGD+/wIAAAAAAAEAAAD//wIAAAAAAAEAAAACAAAAAAAAAAEAAAACAAIAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_p57ef")
-format = 2
-layer_0/name = "Background"
-layer_0/tile_data = PackedInt32Array(-65536, 0, 1, 131071, 0, 1, 65533, 0, 1, -65540, 131072, 2, 196604, 0, 1, 131073, 0, 1, -131070, 0, 1, 65534, 65536, 1, -131071, 65536, 1, 131072, 65536, 1, -65537, 131072, 1, -2, 131072, 1, 131069, 131072, 1, 131068, 131072, 1, 0, 65536, 1610612736, -65535, 131072, 1, 65538, 131072, 1, 131070, 65536, 2, 65536, 65536, 2, 65535, 65536, 2, -1, 0, 2, -65538, 65536, 2, -4, 65536, 2, -131072, 65536, 2, -65534, 0, 1, 1, 0, 1, 65537, 65536, 0, -3, 0, 1, -65539, 0, 1, 65532, 0, 1, 196605, 65536, 1610612736, 196606, 0, 1, 196607, 0, 1, 2, 0, 1, 131074, 0, 1)
 
 [node name="Player" parent="." unique_id=1597567515 instance=ExtResource("1_uwrxv")]
 position = Vector2(2, -9)
