@@ -18,3 +18,4 @@ polygon = PackedVector2Array(66, 66, -66, 66, -66, -66, 66, -66)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=119074337]
 stream = ExtResource("3_nlyga")
+bus = &"SFX"
