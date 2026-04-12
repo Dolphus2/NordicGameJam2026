@@ -17,9 +17,9 @@ var player_area = 1000000
 const PI = 3.141592
 
 # gravitational constant
-const G = 0.000005
+const G = 0.3
 # gravitational power, = 2 if real world
-const ALPHA = 0.5
+const ALPHA = 1.5
 const SPACE_OBJECT_GRAVITY_NAMES = ["black_hole", "white_hole", "planet", "asteroids", "GoalPlanet"]
 
 const seperation_explosion_scene = preload("res://scenes/seperation_particles.tscn")
@@ -215,11 +215,27 @@ func _on_nothing_left_animation_finished() -> void:
 
 #### GRAVITY STUFF START ####
 func get_radius_center(name) -> Array:
-	var space_object : Node2D = get_node(name)
-	var space_object_cs : CollisionShape2D = space_object.get_node("Killzone/CollisionShape2D")
-	var space_object_cs_radius = space_object_cs.shape.radius
-	var space_object_center = space_object.global_position	
-	return [space_object_cs_radius, space_object_center]
+	var space_object: Node2D = get_node(name)
+	var cs: CollisionShape2D = space_object.get_node("Killzone/CollisionShape2D")
+
+	if cs == null:
+		push_error("Missing CollisionShape2D on " + str(name))
+		return [0.0, Vector2.ZERO]
+
+	if cs.shape == null:
+		push_error("CollisionShape2D has no shape on " + str(name))
+		return [0.0, cs.global_position]
+
+	if not cs.shape is CircleShape2D:
+		push_error("Shape is not CircleShape2D on " + str(name) + ", got: " + str(cs.shape))
+		return [0.0, cs.global_position]
+
+	var shape: CircleShape2D = cs.shape
+	var scale_factor = max(abs(cs.global_scale.x), abs(cs.global_scale.y))
+	var world_radius = shape.radius * scale_factor
+	var world_center = cs.global_position
+
+	return [world_radius, world_center]
 
 func get_gravity_contrib(rad_cens : Array, player_pos : Vector2, delta: float) -> Vector2:
 	var velocity_contribution : Vector2 = Vector2(0, 0)
@@ -229,7 +245,7 @@ func get_gravity_contrib(rad_cens : Array, player_pos : Vector2, delta: float) -
 		var planet_pos = rad_cen[1]
 		# print("pos: ", pos)
 		var diff = player_pos - planet_pos
-		var d = max(1e-3, pow(diff.x * diff.x + diff.y * diff.y, 0.5) - planet_radius)
+		var d = max(1e-1, pow(diff.x * diff.x + diff.y * diff.y, 0.5) - planet_radius)
 		var dir = (planet_pos - player_pos).normalized()
 		velocity_contribution += G * (planet_radius * planet_radius * PI) / (pow(d, ALPHA) + 1e-3) * dir
 
