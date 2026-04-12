@@ -10,6 +10,9 @@ const THROW_SPEED = 400
 # Keep between 0-1, 1 is real conservation of momentum, 0 ignores the previous momentum.
 const PREV_MOMENTUM_FACTOR = 1
 
+const MIN_PLAYER_AREA = 5000
+var player_area = 1000000
+
 # for computing areas
 const PI = 3.141592
 
@@ -29,6 +32,7 @@ func _ready() -> void:
 	# Make the seperation explosion container
 	add_child(sep_exp_container)
 	add_child(piece_container)
+	player_area = get_area($CollisionPolygon2D.polygon)
 
 func get_determinant(p1, p2) -> float:
 	return p1.x * p2.y - p2.x * p1.y
@@ -141,7 +145,8 @@ func get_velocity_pieces(polys, prev_poly, V):
 	var vs = []
 	
 	for i in range(polys.size()):
-		var v = - (get_polygon_centroid(polys[0]) - get_polygon_centroid(polys[i])).normalized() * THROW_SPEED
+		var v_norm = ( -1 * (get_polygon_centroid(polys[0]) - get_polygon_centroid(polys[i]))).normalized()
+		var v = v_norm * THROW_SPEED
 		var m = get_area(polys[i])
 		vs.append(v)  # ignore the first one. It will be 0
 		ms.append(m)
@@ -180,6 +185,7 @@ func cut_player(slice_start, slice_end) -> Array[PackedVector2Array]:
 		# Update texture
 		$CollisionPolygon2D/Polygon2D.polygon = polygons[0]
 		$CollisionPolygon2D/Polygon2D.set_uv(polygons[0])
+		player_area = get_area(polygons[0])
 
 		# Screen shake
 		$Camera2D.start_shake()
@@ -194,7 +200,17 @@ func cut_player(slice_start, slice_end) -> Array[PackedVector2Array]:
 func _on_slicer_slice(slice_start, slice_end) -> void:
 	# Cut the player into pieces and apply directional velocity for each piece.
 	var polys = cut_player(slice_start, slice_end)
+	print(player_area)
+	if player_area < MIN_PLAYER_AREA:
+		_nothing_left()
+		
+func _nothing_left():
+	$NothingLeft.offset = get_polygon_centroid($CollisionPolygon2D/Polygon2D.polygon)
+	$NothingLeft.play()
 
+func _on_nothing_left_animation_finished() -> void:
+	# You died. Reload
+	get_tree().reload_current_scene()
 
 #### GRAVITY STUFF START ####
 func get_radius_center(name) -> Array:
@@ -252,7 +268,7 @@ func _physics_process(delta: float) -> void:
 	############# INITIALIZE AREAS START #############
 	var rad_cens = []
 	var node_names = get_gravity_node_names(get_tree().root, [])
-	print(node_names)
+	# print(node_names)
 	for name in node_names:
 		var rad_cen = get_radius_center(name)
 		print(name, " ", rad_cen)
@@ -279,4 +295,4 @@ func _physics_process(delta: float) -> void:
 
 		debug_flag = false
 
-	move_and_slide()
+	move_and_slide()		# Update area and check for death 
