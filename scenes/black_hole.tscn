@@ -26,7 +26,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ic33f"]
-radius = 395.00125
+radius = 309.00647
 
 [node name="BlackHole" unique_id=543335508 instance=ExtResource("1_ic33f")]
 
@@ -43,6 +43,5 @@ scale = Vector2(0.625, 0.6209372)
 texture = ExtResource("1_fhwcw")
 
 [node name="CollisionShape2D" parent="Killzone" parent_id_path=PackedInt32Array(124910515) index="1" unique_id=495435883]
-visible = false
 position = Vector2(-2, -1)
 shape = SubResource("CircleShape2D_ic33f")

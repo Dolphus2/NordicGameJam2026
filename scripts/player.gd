@@ -210,7 +210,8 @@ func _nothing_left():
 
 func _on_nothing_left_animation_finished() -> void:
 	# You died. Reload
-	get_tree().reload_current_scene()
+	die()
+	# get_tree().reload_current_scene()
 
 #### GRAVITY STUFF START ####
 func get_radius_center(name) -> Array:

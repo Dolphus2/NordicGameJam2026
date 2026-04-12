@@ -36,6 +36,8 @@ texture_region_size = Vector2i(512, 512)
 tile_size = Vector2i(512, 512)
 sources/0 = SubResource("TileSetAtlasSource_trtic")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ir15t"]
+radius = 320.39975
 [sub_resource type="Animation" id="Animation_ir15t"]
 length = 0.001
 tracks/0/type = "value"
