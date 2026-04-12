@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dovur5twno2b1"]
 
 [ext_resource type="Script" uid="uid://c3wgieqcegilv" path="res://scripts/player.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://ca8tvhwbrffwu" path="res://assets/spaceship.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://d3bo3rjvft7j4" path="res://assets/spaceship.png" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://b5yb5plujgoal" path="res://assets/disappear_tile.png" id="3_qhqgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]

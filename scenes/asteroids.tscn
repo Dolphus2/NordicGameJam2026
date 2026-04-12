@@ -27,8 +27,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_46dfx"]
-radius = 103.04567
-height = 326.54324
+radius = 87.55834
+height = 309.59213
 
 [node name="Asteroids" unique_id=543335508 instance=ExtResource("1_46dfx")]
 
@@ -45,6 +45,6 @@ scale = Vector2(0.1804348, 0.17926192)
 texture = ExtResource("2_72i4m")
 
 [node name="CollisionShape2D" parent="Killzone" parent_id_path=PackedInt32Array(124910515) index="1" unique_id=495435883]
-position = Vector2(3.9999995, 5)
+position = Vector2(-1.0000005, -5)
 rotation = -0.8796356
 shape = SubResource("CapsuleShape2D_46dfx")

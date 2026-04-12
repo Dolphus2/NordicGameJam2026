@@ -42,4 +42,6 @@ frame_progress = 0.34361476
 visible = false
 
 [node name="CollisionShape2D" parent="Killzone" parent_id_path=PackedInt32Array(124910515) index="1" unique_id=495435883]
+position = Vector2(-10, -11)
+scale = Vector2(0.9, 0.9)
 shape = SubResource("CircleShape2D_1nafi")
