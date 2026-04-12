@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dahhnbl7goc0m"]
+
+[ext_resource type="AudioStream" uid="uid://0q67o1bccbtc" path="res://assets/audio/space-ranger-moire-main-version-03-04-10814.mp3" id="1_05ggv"]
+
+[node name="Music" type="AudioStreamPlayer2D" unique_id=1173712777]
+stream = ExtResource("1_05ggv")
+autoplay = true
+bus = &"Music"
