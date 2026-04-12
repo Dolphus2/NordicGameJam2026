@@ -9244,35 +9244,35 @@ script = ExtResource("1_ui0m3")
 tile_set = SubResource("TileSet_sk2xr")
 format = 2
 
-[node name="Layer0" type="TileMapLayer" parent="TileMap" unique_id=1704713920]
+[node name="Layer1" type="TileMapLayer" parent="TileMap" unique_id=1704713920]
 use_parent_material = true
-tile_map_data = PackedByteArray("AAAAAAAAAAABAAEAAAAAAAEAAAAAAAEAAAACAAAAAAAAAAEAAAABAAAAAAACAAEAAAACAAEAAAACAAEAAAABAAEAAAACAAAAAAAAAP//AAACAAAAAAD//wEAAAACAAAAAAACAP//AAABAAIAAAD//wAAAAABAAIAAAD/////AAAAAAEAAAABAP//AAAAAAEAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAAABAAEAAAAAAAEAAAAAAAEAAAACAAAAAAAAAAEAAAABAAAAAAACAAEAAAACAAEAAAACAAEAAAABAAEAAAACAAAAAAADAAEAAAACAAIAAAADAAAAAAACAAEAAAA=")
 tile_set = SubResource("TileSet_sk2xr")
 
 [node name="YouHave" type="TextureRect" parent="." unique_id=2059492062]
 layout_mode = 0
-offset_left = 18.0
-offset_top = 27.0
-offset_right = 644.66675
-offset_bottom = 497.0
+offset_left = 98.0
+offset_top = 72.0
+offset_right = 1070.0002
+offset_bottom = 801.0
 texture = ExtResource("2_rpy3r")
 expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=220303204]
 layout_mode = 0
-offset_left = 404.0
-offset_top = -30.0
-offset_right = 1207.0
-offset_bottom = 773.0
+offset_left = 663.0
+offset_top = -29.0
+offset_right = 1863.0
+offset_bottom = 1216.2423
 texture = ExtResource("3_5xu3p")
 expand_mode = 1
 
 [node name="Exit" type="TextureButton" parent="." unique_id=562288622]
 layout_mode = 0
-offset_left = 35.0
-offset_top = 399.0
-offset_right = 523.2352
-offset_bottom = 669.0
+offset_left = 115.0
+offset_top = 599.0
+offset_right = 735.23956
+offset_bottom = 942.0
 texture_normal = ExtResource("2_wvtuv")
 texture_pressed = ExtResource("3_rpy3r")
 texture_hover = ExtResource("3_rpy3r")
