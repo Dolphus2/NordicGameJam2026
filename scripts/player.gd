@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 const ROT_SPEED = 1
 #const ACCELERATION = 200
-const THROW_SPEED = 400
+const THROW_SPEED = 800
 # Keep between 0-1, 1 is real conservation of momentum, 0 ignores the previous momentum.
 const PREV_MOMENTUM_FACTOR = 1
 
@@ -133,7 +133,7 @@ func get_velocity_pieces(polys, prev_poly, V):
 	"""Takes an array of polygons. The first one is the player with the largest area."""
 	var M = get_area(prev_poly)
 	var v1 = (V * PREV_MOMENTUM_FACTOR) * M # temp
-	
+
 	var ms = []
 	var vs = []
 	
