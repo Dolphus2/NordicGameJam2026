@@ -16,6 +16,7 @@ func _on_exit_button_pressed() -> void:
 	visible = false
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
+	GlobalAudioStreamPlayer.play()
 	
 
 func _on_x_button_pressed() -> void:

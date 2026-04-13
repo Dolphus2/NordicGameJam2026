@@ -21,7 +21,7 @@ buses/default_bus_layout="uid://cysvdpy47ru40"
 
 [autoload]
 
-Music="uid://dahhnbl7goc0m"
+GlobalAudioStreamPlayer="*uid://blhjmt20hm1y3"
 
 [display]
 

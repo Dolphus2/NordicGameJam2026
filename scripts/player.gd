@@ -12,7 +12,7 @@ const THROW_SPEED = 800
 const PREV_MOMENTUM_FACTOR = 1.5
 const MAX_G_DIST = 800
 
-const MIN_PLAYER_AREA = 1000
+const MIN_PLAYER_AREA = 4000
 var player_area = 1000000
 
 # for computing areas
