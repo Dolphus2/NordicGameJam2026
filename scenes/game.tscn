@@ -18,9 +18,6 @@
 [ext_resource type="Script" uid="uid://d3nucsik4uohl" path="res://scripts/goal_planet.gd" id="14_trtic"]
 [ext_resource type="PackedScene" uid="uid://beu5j00l33p4t" path="res://scenes/killzone.tscn" id="16_ca42v"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ir15t"]
-radius = 320.39975
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ssvqc"]
 texture = ExtResource("1_kvuet")
 texture_region_size = Vector2i(512, 512)
@@ -9254,6 +9251,9 @@ texture_region_size = Vector2i(256, 256)
 tile_size = Vector2i(256, 256)
 sources/1 = SubResource("TileSetAtlasSource_1kice")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ir15t"]
+radius = 339.63348
+
 [sub_resource type="Animation" id="Animation_ir15t"]
 length = 0.001
 tracks/0/type = "value"
@@ -9354,13 +9354,16 @@ tile_set = SubResource("TileSet_5newe")
 position = Vector2(89.00003, -5215)
 scale = Vector2(0.42105234, 0.42105234)
 
+[node name="CollisionShape2D" parent="GoalPlanet/Killzone" parent_id_path=PackedInt32Array(1171461319, 124910515) index="1" unique_id=495435883]
+disabled = true
+
 [node name="Area2D" type="Area2D" parent="GoalPlanet" unique_id=1788369971]
 position = Vector2(8, 8)
 script = ExtResource("14_trtic")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalPlanet/Area2D" unique_id=1820200627]
-position = Vector2(0, 8)
+position = Vector2(-8.000065, -5.626107)
 shape = SubResource("CircleShape2D_ir15t")
 metadata/_edit_lock_ = true
 
@@ -9882,11 +9885,6 @@ rotation = 0.3269711
 stream = ExtResource("13_kvuet")
 bus = &"Music"
 
-[node name="GoalPlanet2" parent="." unique_id=1077245034 instance=ExtResource("3_lnu2h")]
-position = Vector2(86.00001, -5215)
-rotation = -0.0026196276
-scale = Vector2(0.39227462, 0.39227462)
-
 [node name="Killzone" parent="." unique_id=124910515 instance=ExtResource("16_ca42v")]
 
 [node name="BottomBoundary" type="CollisionShape2D" parent="Killzone" unique_id=1646312887]
@@ -9914,3 +9912,5 @@ shape = SubResource("WorldBoundaryShape2D_1kice")
 
 [connection signal="body_entered" from="GoalPlanet/Area2D" to="GoalPlanet/Area2D" method="_on_body_entered"]
 [connection signal="slice" from="Player/Slicer" to="Player" method="_on_slicer_slice"]
+
+[editable path="GoalPlanet"]
